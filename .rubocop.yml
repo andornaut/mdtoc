@@ -1,0 +1,11 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+require: 
+  - rubocop-sorbet
+
+Style/Documentation:
+  Enabled: false
+
+Sorbet:
+  Enabled: true
