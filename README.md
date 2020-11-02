@@ -50,7 +50,7 @@ task(:mdtoc) do |t|
       exit 1
     fi
     mdtoc --append --create --output README.md docs/
-    git add **/*.md
+    git add *.md **/*.md
     git commit -m 'Update TOC'
     git push
   END
@@ -88,4 +88,7 @@ rake test                  # Run tests
 
 # Run mdtoc with test inputs
 $ ruby -Ilib bin/mdtoc test/samples
+
+# Run mdtoc with test inputs, and write to a newly created output file
+$ f=$(mktemp) && ruby -Ilib bin/mdtoc -aco ${f} test/samples ; cat ${f}
 ```
