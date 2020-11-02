@@ -16,12 +16,12 @@ module Mdtoc
     def main(args)
       options = Mdtoc::CLI::Options.for_args(args)
       toc = render_toc(options.paths)
-      unless options.output_path
+      unless options.output
         puts toc
         return
       end
 
-      Mdtoc::Writer.write(toc, T.must(options.output_path), options.append, options.create)
+      Mdtoc::Writer.write(toc, T.must(options.output), options.append, options.create)
     end
 
     private

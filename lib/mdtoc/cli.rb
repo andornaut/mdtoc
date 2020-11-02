@@ -15,8 +15,12 @@ module Mdtoc
 
       prop :append, T::Boolean, default: false
       prop :create, T::Boolean, default: false
-      prop :output_path, T.nilable(String)
+      prop :output, T.nilable(String)
       prop :paths, T::Array[String], default: []
+
+      def []=(key, val)
+        send("#{key}=", val)
+      end
 
       sig { params(args: T::Array[String]).returns(Options) }
       def self.for_args(args)

@@ -9,26 +9,26 @@ module Mdtoc
     class << self
       extend T::Sig
 
-      sig { params(toc: String, output_path: String, append: T::Boolean, create: T::Boolean).void }
-      def write(toc, output_path, append, create)
-        validate_output_path(output_path, create)
-        new_content = content(toc, output_path, append)
-        File.open(output_path, 'w') do |f|
+      sig { params(toc: String, path: String, append: T::Boolean, create: T::Boolean).void }
+      def write(toc, path, append, create)
+        validate_path(path, create)
+        new_content = content(toc, path, append)
+        File.open(path, 'w') do |f|
           f.write(new_content)
         end
       end
 
       private
 
-      sig { params(toc: String, output_path: String, append: T::Boolean).returns(String) }
-      def content(toc, output_path, append)
+      sig { params(toc: String, path: String, append: T::Boolean).returns(String) }
+      def content(toc, path, append)
         toc = "#{COMMENT_BEGIN}\n#{toc}\n#{COMMENT_END}"
 
         begin
-          f = File.open(output_path)
+          f = File.open(path)
         rescue
           # If File.open failed because the file didn't exist, then we know that --create
-          # was specified due to the validation in self.validate_output_path.
+          # was specified due to the validation in self.validate_path.
           return "#{toc}\n"
         end
         begin
@@ -45,20 +45,20 @@ module Mdtoc
           return "#{old_content}\n#{toc}\n"
         end
 
-        warn("Could not update #{output_path}, because the target HTML tag \"#{COMMENT_BEGIN}\" was not found")
+        warn("Could not update #{path}, because the target HTML tag \"#{COMMENT_BEGIN}\" was not found")
         exit(1)
       end
 
-      sig { params(output_path: String, create: T::Boolean).void }
-      def validate_output_path(output_path, create)
-        if output_path
-          if File.exist?(output_path)
-            unless File.file?(output_path)
-              warn("--output PATH \"#{output_path}\" is not a regular file")
+      sig { params(path: String, create: T::Boolean).void }
+      def validate_path(path, create)
+        if path
+          if File.exist?(path)
+            unless File.file?(path)
+              warn("--output PATH \"#{path}\" is not a regular file")
               exit
             end
           elsif !create
-            warn("--output PATH \"#{output_path}\" does not exist. Specify --create to create it.")
+            warn("--output PATH \"#{path}\" does not exist. Specify --create to create it.")
             exit
           end
         end
