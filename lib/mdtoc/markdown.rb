@@ -18,15 +18,15 @@ module Mdtoc
         @url = url
       end
 
-      sig { params(relative_to_depth: Integer).returns(T::Boolean) }
-      def top_level?(relative_to_depth)
-        @depth == relative_to_depth
-      end
-
       sig { returns(String) }
       def to_s
         prefix = ' ' * 2 * @depth
         "#{prefix}* [#{@label}](#{@url})"
+      end
+
+      sig { params(relative_to_depth: Integer).returns(T::Boolean) }
+      def top_level?(relative_to_depth)
+        @depth == relative_to_depth
       end
     end
 

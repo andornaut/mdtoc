@@ -25,14 +25,14 @@ module Mdtoc
       @path = path
       @depth = depth
     end
+  end
 
-    sig { returns(String) }
-    def label
-      File.basename(@path, File.extname(@path)).gsub(/_+/, ' ').gsub(/\s+/, ' ').capitalize
-    end
+  sig { abstract.returns(T::Array[Mdtoc::Markdown::Header]) }
+  def headers; end
 
-    sig { abstract.returns(T::Array[Mdtoc::Markdown::Header]) }
-    def headers; end
+  sig { returns(String) }
+  def label
+    File.basename(@path, File.extname(@path)).gsub(/_+/, ' ').gsub(/\s+/, ' ').capitalize
   end
 
   class DirNode < Node
