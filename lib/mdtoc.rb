@@ -12,15 +12,6 @@ module Mdtoc
   class << self
     extend T::Sig
 
-    sig { params(paths: T::Array[String]).returns(String) }
-    def render_toc(paths)
-      paths
-        .map { |path| Mdtoc::Node.for_path(path).headers }
-        .flatten(1)
-        .map(&:to_s)
-        .join("\n")
-    end
-
     sig { params(args: T::Array[String]).void }
     def main(args)
       options = Mdtoc::CLI::Options.for_args(args)
@@ -31,6 +22,17 @@ module Mdtoc
       end
 
       Mdtoc::Writer.write(toc, T.must(options.output_path), options.append, options.create)
+    end
+
+    private
+
+    sig { params(paths: T::Array[String]).returns(String) }
+    def render_toc(paths)
+      paths
+        .map { |path| Mdtoc::Node.for_path(path).headers }
+        .flatten(1)
+        .map(&:to_s)
+        .join("\n")
     end
   end
 end
