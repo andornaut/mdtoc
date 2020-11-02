@@ -10,8 +10,6 @@ require_relative 'writer'
 
 module Mdtoc
   module CLI
-    extend T::Helpers
-
     class Options < T::Struct
       extend T::Sig
 
@@ -32,6 +30,7 @@ module Mdtoc
           parser_.on('-a', '--[no-]append', 'Append to the --output file if a <!-- mdtoc --> tag isn\'t found')
           parser_.on('-c', '--[no-]create', 'Create the --output file if it does not exist')
         end
+
         options = Options.new
         options.paths = parser.parse(args, into: options)
         if options.paths.empty?
