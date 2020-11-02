@@ -20,19 +20,28 @@ module Mdtoc
       File.directory?(path) ? DirNode.new(path, depth) : FileNode.new(path, depth)
     end
 
+    sig { params(paths: T::Array[String]).returns(String) }
+    def self.render(paths)
+      paths
+        .map { |path| for_path(path).headers }
+        .flatten(1)
+        .map(&:to_s)
+        .join("\n")
+    end
+
     sig { params(path: String, depth: Integer).void }
     def initialize(path, depth)
       @path = path
       @depth = depth
     end
-  end
 
-  sig { abstract.returns(T::Array[Mdtoc::Markdown::Header]) }
-  def headers; end
+    sig { abstract.returns(T::Array[Mdtoc::Markdown::Header]) }
+    def headers; end
 
-  sig { returns(String) }
-  def label
-    File.basename(@path, File.extname(@path)).gsub(/_+/, ' ').gsub(/\s+/, ' ').capitalize
+    sig { returns(String) }
+    def label
+      File.basename(@path, File.extname(@path)).gsub(/_+/, ' ').gsub(/\s+/, ' ').capitalize
+    end
   end
 
   class DirNode < Node
