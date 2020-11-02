@@ -18,10 +18,6 @@ module Mdtoc
       prop :output, T.nilable(String)
       prop :paths, T::Array[String], default: []
 
-      def []=(key, val)
-        send("#{key}=", val)
-      end
-
       sig { params(args: T::Array[String]).returns(Options) }
       def self.for_args(args)
         parser = OptionParser.new do |parser_|
@@ -42,6 +38,10 @@ module Mdtoc
           exit(1)
         end
         options
+      end
+
+      def []=(key, val)
+        send("#{key}=", val)
       end
     end
   end
