@@ -12,10 +12,8 @@ class TestHeader < Minitest::Test
       "Spaces\t1 tab",
       "Spaces\t\t2 tabs",
       '    Spaces leading and trailing    ',
-      'Numbers 1234567890',
-      'Symbols -=~!@#$%^&',
-      'Symbols *()_+',
-      'Symbols <>?:"{}|[]\;\',./',
+      'Symbols _-=~!@#$%^&*()+<>?:"{}|[]\;\',./',
+      'Alphabet 123 abc DEF Ghi',
     ]
     expecteds = [
       '/a#spaces-1-space',
@@ -23,10 +21,8 @@ class TestHeader < Minitest::Test
       '/a#spaces1-tab',
       '/a#spaces2-tabs',
       '/a#spaces-leading-and-trailing',
-      '/a#numbers-1234567890',
-      '/a#symbols--',
-      '/a#symbols-_',
-      '/a#symbols-',
+      '/a#symbols-_-',
+      '/a#alphabet-123-abc-def-ghi',
     ]
     actuals = sample.map do |label|
       Mdtoc::Markdown::HeaderWithFragment.new(1, label, '/a').instance_variable_get(:@url)
