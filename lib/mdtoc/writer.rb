@@ -31,8 +31,11 @@ module Mdtoc
           # was specified due to the validation in self.validate_output_path.
           return "#{toc}\n"
         end
-        old_content = T.must(f.read)
-        f.close
+        begin
+          old_content = T.must(f.read)
+        ensure
+          f.close
+        end
 
         if Regexp.new(Regexp.escape(COMMENT_BEGIN), Regexp::IGNORECASE).match?(old_content)
           return old_content.gsub(
