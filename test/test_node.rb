@@ -5,8 +5,6 @@ require "minitest/autorun"
 require "mdtoc/node"
 
 class TestNode < Minitest::Test
-  SAMPLE_DIR = File.join(File.dirname(__FILE__), 'samples')
-
   def test_dir
     expected = <<~END
       * [readme 1](test/samples/a/readme.md#readme-1)
@@ -21,7 +19,7 @@ class TestNode < Minitest::Test
         * [README 1 for g](test/samples/a/g/README.md#readme-1-for-g)
           * [h 1](test/samples/a/g/h.md#h-1)
     END
-    node = Mdtoc::Node.for_path(sample_path('a'))
+    node = Mdtoc::DirNode.new('test/samples/a', 0)
     actual = node.headers.join("\n") + "\n"
 
     assert_equal(expected, actual)
@@ -36,15 +34,9 @@ class TestNode < Minitest::Test
             * [4](test/samples/README.md#4)
         * [2](test/samples/README.md#2)
     END
-    node = Mdtoc::Node.for_path(sample_path('README.md'))
+    node = Mdtoc::FileNode.new('test/samples/README.md', 0)
     actual = node.headers.join("\n") + "\n"
 
     assert_equal(expected, actual)
-  end
-
-  private
-
-  def sample_path(path)
-    File.join('test/samples', path)
   end
 end

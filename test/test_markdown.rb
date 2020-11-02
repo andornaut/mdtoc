@@ -68,12 +68,6 @@ class TestHeader < Minitest::Test
 
     assert_equal('* [a](/a#a)', str)
   end
-
-  def test_to_s_without_fragment
-    str = Mdtoc::Markdown::Header.new(0, 'a', '/a').to_s
-
-    assert_equal('* [a](/a)', str)
-  end
 end
 
 class TestParser < Minitest::Test
