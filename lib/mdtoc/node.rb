@@ -3,7 +3,8 @@
 
 require 'pathname'
 require 'sorbet-runtime'
-require_relative 'markdown'
+require_relative 'markdown/header'
+require_relative 'markdown/parser'
 
 module Mdtoc
   class Node
@@ -11,22 +12,26 @@ module Mdtoc
     extend T::Sig
     abstract!
 
-    sig { params(path: String, depth: Integer).returns(Node) }
-    def self.for_path(path, depth = 0)
-      # Ensure that `path` is a relative path, so that all links are relative and therefore portable.
-      path = Pathname.new(path)
-      path = path.relative_path_from(Dir.pwd) if path.absolute?
-      path = path.to_s
-      File.directory?(path) ? DirNode.new(path, depth) : FileNode.new(path, depth)
-    end
+    class << self
+      extend T::Sig
 
-    sig { params(paths: T::Array[String]).returns(String) }
-    def self.render(paths)
-      paths
-        .map { |path| for_path(path).headers }
-        .flatten(1)
-        .map(&:to_s)
-        .join("\n")
+      sig { params(path: String, depth: Integer).returns(Node) }
+      def for_path(path, depth = 0)
+        # Ensure that `path` is a relative path, so that all links are relative and therefore portable.
+        path = Pathname.new(path)
+        path = path.relative_path_from(Dir.pwd) if path.absolute?
+        path = path.to_s
+        File.directory?(path) ? DirNode.new(path, depth) : FileNode.new(path, depth)
+      end
+
+      sig { params(paths: T::Array[String]).returns(String) }
+      def render(paths)
+        paths
+          .map { |path| for_path(path).headers }
+          .flatten(1)
+          .map(&:to_s)
+          .join("\n")
+      end
     end
 
     sig { params(path: String, depth: Integer).void }

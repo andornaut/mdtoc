@@ -28,7 +28,7 @@ module Mdtoc
           f = File.open(path)
         rescue
           # If File.open failed because the file didn't exist, then we know that --create
-          # was specified due to the validation in self.validate_path.
+          # was specified due to the validation in validate_path.
           return "#{toc}\n"
         end
         begin
