@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir['lib/**/*.rb'] + Dir['test/**/*']
   spec.homepage = 'https://github.com/andornaut/mdtoc'
   spec.license = 'MIT'
+  spec.required_ruby_version = '>= 2.7.2'
 
   spec.add_development_dependency('minitest', '~> 5')
   spec.add_development_dependency('rake')
