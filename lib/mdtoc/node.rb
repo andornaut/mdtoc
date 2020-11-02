@@ -28,7 +28,7 @@ module Mdtoc
 
     sig { returns(String) }
     def label
-      File.basename(@path, File.extname(@path))
+      File.basename(@path, File.extname(@path)).gsub(/_+/, ' ').gsub(/\s+/, ' ').capitalize
     end
 
     sig { abstract.returns(T::Array[Mdtoc::Markdown::Header]) }
