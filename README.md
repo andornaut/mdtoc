@@ -50,7 +50,7 @@ task(:mdtoc) do |t|
       exit 1
     fi
     mdtoc --append --create --output README.md docs/
-    git add *.md
+    git add **/*.md
     git commit -m 'Update TOC'
     git push
   END
