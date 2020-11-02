@@ -1,8 +1,8 @@
 # typed: false
 # frozen_string_literal: true
 
-require "minitest/autorun"
-require "mdtoc/markdown/parser"
+require 'minitest/autorun'
+require 'mdtoc/markdown/parser'
 
 class TestMarkdownParser < Minitest::Test
   def test_skips_multiline_code_blocks

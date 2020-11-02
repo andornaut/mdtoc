@@ -1,8 +1,8 @@
 # typed: false
 # frozen_string_literal: true
 
-require "minitest/autorun"
-require "mdtoc/markdown/header"
+require 'minitest/autorun'
+require 'mdtoc/markdown/header'
 
 class TestMarkdownHeader < Minitest::Test
   def test_fragment_normalization

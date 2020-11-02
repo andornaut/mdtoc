@@ -1,8 +1,8 @@
 # typed: false
 # frozen_string_literal: true
 
-require "minitest/autorun"
-require "mdtoc/node"
+require 'minitest/autorun'
+require 'mdtoc/node'
 
 class TestNode < Minitest::Test
   def test_dir
