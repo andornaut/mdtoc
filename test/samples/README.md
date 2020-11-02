@@ -1,4 +1,4 @@
-# title
+# Title
 intro text
  # Ignore this non-title
     # ignore this non title

@@ -14,7 +14,7 @@ module Mdtoc
           raise ArgumentError, "Header depth must be >= 0, but was #{depth}"
         end
         @depth = depth
-        @label = label
+        @label = label.strip.gsub(/\s+/, ' ')
         @url = url
       end
 
@@ -33,7 +33,7 @@ module Mdtoc
     class HeaderWithFragment < Header
       sig { params(depth: Integer, label: String, url: String).void }
       def initialize(depth, label, url)
-        url = "#{url}##{label.downcase.gsub(/\s+/, '-').gsub(/[^\w\-_\s]/, '').strip}"
+        url = "#{url}##{label.downcase.strip.gsub(/ /, '-').gsub(/[^\w\-_ ]/, '')}"
         super
       end
     end
