@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mdtoc (0.0.2)
+    mdtoc (0.0.3)
       sorbet-runtime
 
 GEM
@@ -58,7 +58,7 @@ GEM
     ruby-progressbar (1.10.1)
     sorbet (0.5.6024)
       sorbet-static (= 0.5.6024)
-    sorbet-runtime (0.5.6024)
+    sorbet-runtime (0.5.6025)
     sorbet-static (0.5.6024-universal-darwin-14)
     thread_safe (0.3.6)
     unicode-display_width (1.7.0)
