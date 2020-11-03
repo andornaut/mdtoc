@@ -13,8 +13,8 @@ task default: %w[build rubocop:auto_correct sorbet test]
 RuboCop::RakeTask.new
 
 Rake::TestTask.new(:test) do |t|
-  t.libs << 'test'
   t.libs << 'lib'
+  t.libs << 'test'
   t.test_files = FileList['test/**/test_*.rb']
 end
 
