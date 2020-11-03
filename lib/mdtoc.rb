@@ -13,7 +13,7 @@ module Mdtoc
 
     sig { params(args: T::Array[String]).void }
     def main(args)
-      options = Mdtoc::CLI::Options.for_args(args)
+      options = Mdtoc::CLI.parse(args)
       toc = Mdtoc::Node.render(options.paths)
       unless options.output
         puts toc
