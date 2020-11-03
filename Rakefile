@@ -19,4 +19,6 @@ Rake::TestTask.new(:test) do |t|
 end
 
 desc 'Run the Sorbet type checker'
-task :sorbet  { sh 'srb tc' }
+task :sorbet do
+  sh 'srb tc'
+end
