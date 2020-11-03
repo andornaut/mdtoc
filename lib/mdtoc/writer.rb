@@ -51,16 +51,14 @@ module Mdtoc
 
       sig { params(path: String, create: T::Boolean).void }
       def validate_path(path, create)
-        if path
-          if File.exist?(path)
-            unless File.file?(path)
-              warn("--output PATH \"#{path}\" is not a regular file")
-              exit
-            end
-          elsif !create
-            warn("--output PATH \"#{path}\" does not exist. Specify --create to create it.")
+        if File.exist?(path)
+          unless File.file?(path)
+            warn("--output PATH \"#{path}\" is not a regular file")
             exit
           end
+        elsif !create
+          warn("--output PATH \"#{path}\" does not exist. Specify --create to create it.")
+          exit
         end
       end
     end
