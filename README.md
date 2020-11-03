@@ -38,10 +38,10 @@ Run the [rake](https://github.com/ruby/rake) "mdtoc" task to update a table of c
 See [andornaut/til](https://github.com/andornaut/til) for an example.
 
 ```
-task(default: %w[mdtoc])
+task default: %w[mdtoc]
 
 desc 'Update Markdown table of contents and push changes to the git repository'
-task(:mdtoc) do |t|
+task :mdtoc do |t|
   command = <<~END
     set -e
     git pull
