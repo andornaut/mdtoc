@@ -33,7 +33,7 @@ module Mdtoc
     class HeaderWithFragment < Header
       sig { params(depth: Integer, label: String, url: String).void }
       def initialize(depth, label, url)
-        url = "#{url}##{label.downcase.strip.gsub(/ /, '-').gsub(/[^\w\- ]/, '')}"
+        url = "#{url}##{label.strip.downcase.tr(' ', '-').gsub(/[^\w\-]/, '')}"
         super
       end
     end

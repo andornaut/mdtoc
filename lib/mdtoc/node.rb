@@ -27,9 +27,7 @@ module Mdtoc
       sig { params(paths: T::Array[String]).returns(String) }
       def render(paths)
         paths
-          .map { |path| for_path(path).headers }
-          .flatten(1)
-          .map(&:to_s)
+          .flat_map { |path| for_path(path).headers }
           .join("\n")
       end
     end
@@ -55,11 +53,9 @@ module Mdtoc
       readme_path = T.let(nil, T.nilable(String))
       child_headers = Dir
         .each_child(@path)
-        .map { |path| File.join(@path, path) }
-        .reject { |path| readme_path = path if File.basename(path).downcase == 'readme.md' }
+        .reject { |path| readme_path = File.join(@path, path) if path.casecmp?('readme.md') }
         .sort!
-        .map { |path| Node.for_path(path, @depth + 1).headers }
-        .flatten(1)
+        .flat_map { |path| Node.for_path(File.join(@path, path), @depth + 1).headers }
       return child_headers unless readme_path
 
       # Include the headers from the README at the beginning.
