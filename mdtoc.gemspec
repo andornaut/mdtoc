@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors = ['andornaut']
 
   spec.summary = 'Read Markdown files and output a table of contents'
-  spec.description   = File.read('README.md') 
+  spec.description = File.read('README.md')
   spec.homepage = 'https://github.com/andornaut/mdtoc'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 2.7.2'

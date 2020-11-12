@@ -60,7 +60,7 @@ module Mdtoc
 
       # Include the headers from the README at the beginning.
       readme_headers = FileNode.new(readme_path, @depth).headers
-      readme_headers.push(*child_headers)
+      readme_headers + child_headers
     end
   end
 
