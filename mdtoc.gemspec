@@ -6,13 +6,16 @@ require_relative 'lib/mdtoc/version'
 Gem::Specification.new do |spec|
   spec.name = 'mdtoc'
   spec.version = Mdtoc::VERSION
-  spec.summary = 'Read Markdown files and output a table of contents'
   spec.authors = ['andornaut']
-  spec.executables << 'mdtoc'
-  spec.files = Dir['lib/**/*.rb'] + Dir['test/**/*']
+
+  spec.summary = 'Read Markdown files and output a table of contents'
+  spec.description   = File.read('README.md') 
   spec.homepage = 'https://github.com/andornaut/mdtoc'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 2.7.2'
+
+  spec.executables << 'mdtoc'
+  spec.files = Dir['lib/**/*.rb']
 
   spec.add_development_dependency('minitest', '~> 5')
   spec.add_development_dependency('rake')
