@@ -45,33 +45,33 @@ module Mdtoc
     def label
       File.basename(@path, File.extname(@path)).gsub(/_+/, ' ').gsub(/\s+/, ' ').capitalize
     end
-  end
 
-  class DirNode < Node
-    sig { override.returns(T::Array[Mdtoc::Markdown::Header]) }
-    def headers
-      readme_path = T.let(nil, T.nilable(String))
-      child_headers = Dir
-        .each_child(@path)
-        .reject { |path| readme_path = File.join(@path, path) if path.casecmp?('readme.md') }
-        .sort!
-        .flat_map { |path| Node.for_path(File.join(@path, path), @depth + 1).headers }
-      return child_headers unless readme_path
+    class DirNode < Node
+      sig { override.returns(T::Array[Mdtoc::Markdown::Header]) }
+      def headers
+        readme_path = T.let(nil, T.nilable(String))
+        child_headers = Dir
+          .each_child(@path)
+          .reject { |path| readme_path = File.join(@path, path) if path.casecmp?('readme.md') }
+          .sort!
+          .flat_map { |path| Node.for_path(File.join(@path, path), @depth + 1).headers }
+        return child_headers unless readme_path
 
-      # Include the headers from the README at the beginning.
-      readme_headers = FileNode.new(readme_path, @depth).headers
-      readme_headers + child_headers
+        # Include the headers from the README at the beginning.
+        readme_headers = FileNode.new(readme_path, @depth).headers
+        readme_headers + child_headers
+      end
     end
-  end
 
-  class FileNode < Node
-    sig { override.returns(T::Array[Mdtoc::Markdown::Header]) }
-    def headers
-      parser = Markdown::Parser.new(@depth, @path)
-      headers = parser.headers(File.foreach(@path))
-      return headers if headers[0]&.top_level?(@depth)
+    class FileNode < Node
+      sig { override.returns(T::Array[Mdtoc::Markdown::Header]) }
+      def headers
+        parser = Markdown::Parser.new(@depth, @path)
+        headers = parser.headers(File.foreach(@path))
+        return headers if headers[0]&.top_level?(@depth)
 
-      headers.unshift(Mdtoc::Markdown::Header.new(@depth, label, @path))
+        headers.unshift(Mdtoc::Markdown::Header.new(@depth, label, @path))
+      end
     end
   end
 end
