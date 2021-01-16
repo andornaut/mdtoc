@@ -34,8 +34,13 @@ Usage: mdtoc [options] files or directories...
 
 ## Example Rakefile
 
-Run the [rake](https://github.com/ruby/rake) "mdtoc" task to update a table of contents.
-See [andornaut/til](https://github.com/andornaut/til) for an example.
+Create a `Rakefile` with the contents below, then run
+[`rake`](https://github.com/ruby/rake) to:
+
+* `git pull`
+* `git add` any *.md files
+* Run `mdtoc` to update the generated table of contents in the ./README.md file
+* Git commit and push any changes
 
 ```
 task default: %w[mdtoc]
@@ -57,6 +62,8 @@ task :mdtoc do |t|
   %x|#{command}|
 end
 ```
+
+See [andornaut/til](https://github.com/andornaut/til/blob/master/Rakefile) for an example.
 
 ## Development
 
