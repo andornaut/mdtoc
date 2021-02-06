@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 require 'minitest/autorun'
@@ -9,8 +9,10 @@ class TestMarkdownHeader < Minitest::Test
     sample = [
       'Spaces 1 space',
       'Spaces  2 spaces',
-      "Spaces\t1 tab",
-      "Spaces\t\t2 tabs",
+      "Remove\t1 tabs",
+      "Remove\r1 carriage returns",
+      "Remove\n1 newlines",
+      "Remove\t\t2 tabs",
       '    Spaces leading and trailing    ',
       'Symbols _-=~!@#$%^&*()+<>?:"{}|[]\;\',./',
       'Alphabet 123 abc DEF Ghi',
@@ -18,8 +20,10 @@ class TestMarkdownHeader < Minitest::Test
     expecteds = [
       '/a#spaces-1-space',
       '/a#spaces--2-spaces',
-      '/a#spaces1-tab',
-      '/a#spaces2-tabs',
+      '/a#remove1-tabs',
+      '/a#remove1-carriage-returns',
+      '/a#remove1-newlines',
+      '/a#remove2-tabs',
       '/a#spaces-leading-and-trailing',
       '/a#symbols-_-',
       '/a#alphabet-123-abc-def-ghi',
@@ -40,13 +44,27 @@ class TestMarkdownHeader < Minitest::Test
   def test_label_normalization
     sample = [
       '  strip  ',
-      "squeeze    internal \t spaces",
+      "do not squeeze    internal  spaces",
       'Don\'t change "#1?|!@#$%^&*()+ 2--',
     ]
     expecteds = [
       'strip',
-      "squeeze internal spaces",
+      'do not squeeze    internal  spaces',
       'Don\'t change "#1?|!@#$%^&*()+ 2--',
+    ]
+    actuals = sample.map { |label| Mdtoc::Markdown::Header.new(0, label, '/a').instance_variable_get(:@label) }
+
+    expecteds.zip(actuals).each { |expected, actual| assert_equal(expected, actual) }
+  end
+
+  def test_strip_links
+    sample = [
+      '[label](url)',
+      'prefix [label](url) suffix',
+    ]
+    expecteds = [
+      'label',
+      'prefix label suffix',
     ]
     actuals = sample.map { |label| Mdtoc::Markdown::Header.new(0, label, '/a').instance_variable_get(:@label) }
 
