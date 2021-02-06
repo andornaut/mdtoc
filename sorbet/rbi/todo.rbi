@@ -2,5 +2,8 @@
 #   srb rbi todo
 
 # typed: strong
-module T::S; end
-module TestMeme::Meme; end
+module Rake::TaskLib::Cloneable; end
+module T::InterfaceWrapper::Helpers; end
+module T::Private::Abstract::Hooks; end
+module T::Private::Methods::MethodHooks; end
+module T::Private::Methods::SingletonMethodHooks; end
