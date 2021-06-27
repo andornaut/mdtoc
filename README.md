@@ -46,8 +46,8 @@ Create a `Rakefile` with the contents below, then run
 task default: %w[mdtoc]
 
 desc 'Update Markdown table of contents and push changes to the git repository'
-task :mdtoc do |t|
-  command = <<~END
+task :mdtoc do
+  command = <<~CMD
     set -e
     git pull
     if [ -n "$(git diff --name-only --diff-filter=U)" ]; then
@@ -58,7 +58,7 @@ task :mdtoc do |t|
     git add *.md **/*.md
     git commit -m 'Update TOC'
     git push
-  END
+  CMD
   %x|#{command}|
 end
 ```
