@@ -25,7 +25,7 @@ Usage: mdtoc [options] files or directories...
 
 1. Add a `<!-- mdtoc -->` tag to a Markdown file.
   ```
-  $ echo '<!-- mdtoc -->` >> README.md
+  $ echo '<!-- mdtoc -->' >> README.md
   ```
 2. Run `mdtoc` and specify input files or directories (eg. the "test/samples" directory) and an output file (eg. "README.md").
   ```
