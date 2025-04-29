@@ -8,13 +8,13 @@ Requirements:
 
 * [Ruby](https://www.ruby-lang.org/en/) (see [.ruby-version](./.ruby-version))
 
-```
-$ gem install mdtoc
+```bash
+gem install mdtoc
 ```
 
 ## Usage
 
-```
+```bash
 $ mdtoc --help
 Usage: mdtoc [options] files or directories...
     -h, --help                       Show this message
@@ -24,12 +24,15 @@ Usage: mdtoc [options] files or directories...
 ```
 
 1. Add a `<!-- mdtoc -->` tag to a Markdown file.
+
+  ```bash
+  echo '<!-- mdtoc -->' >> README.md
   ```
-  $ echo '<!-- mdtoc -->' >> README.md
-  ```
+
 2. Run `mdtoc` and specify input files or directories (eg. the "test/samples" directory) and an output file (eg. "README.md").
-  ```
-  $ mdtoc -aco README.md test/samples
+
+  ```bash
+  mdtoc -aco README.md test/samples
   ```
 
 ## Example Rakefile
@@ -42,7 +45,7 @@ Create a `Rakefile` with the contents below, then run
 * Run `mdtoc` to update the generated table of contents in the ./README.md file
 * Git commit and push any changes
 
-```
+```ruby
 task default: %w[mdtoc]
 
 desc 'Update Markdown table of contents and push changes to the git repository'
@@ -71,20 +74,20 @@ See [andornaut/til](https://github.com/andornaut/til/blob/master/Rakefile) for a
 
 ## Development
 
-### Installation
+### Setup
 
 Requirements:
 
 * [Bundler](https://bundler.io/)
 
-```
+```bash
 # Install dependencies
-$ bundle
+bundle
 ```
 
-### Usage
+### Tasks
 
-```
+```bash
 # List rake tasks
 $ rake -T
 rake build                 # Build mdtoc-0.0.2.gem into the pkg directory
