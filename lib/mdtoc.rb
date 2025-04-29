@@ -1,11 +1,11 @@
 # typed: strict
 # frozen_string_literal: true
 
-require 'optparse'
-require 'tempfile'
-require_relative 'mdtoc/cli'
-require_relative 'mdtoc/node'
-require_relative 'mdtoc/writer'
+require "optparse"
+require "tempfile"
+require_relative "mdtoc/cli"
+require_relative "mdtoc/node"
+require_relative "mdtoc/writer"
 
 module Mdtoc
   class << self

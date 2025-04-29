@@ -3,8 +3,8 @@
 
 module Mdtoc
   module Writer
-    COMMENT_BEGIN = '<!-- mdtoc -->'
-    COMMENT_END = '<!-- mdtoc-end -->'
+    COMMENT_BEGIN = "<!-- mdtoc -->"
+    COMMENT_END = "<!-- mdtoc-end -->"
 
     class << self
       extend T::Sig
@@ -13,7 +13,7 @@ module Mdtoc
       def write(toc, path, append, create)
         validate_path(path, create)
         new_content = content(toc, path, append)
-        File.open(path, 'w') do |f|
+        File.open(path, "w") do |f|
           f.write(new_content)
         end
       end
