@@ -1,10 +1,10 @@
 # typed: strict
 # frozen_string_literal: true
 
-require 'pathname'
-require 'sorbet-runtime'
-require_relative 'markdown/header'
-require_relative 'markdown/parser'
+require "pathname"
+require "sorbet-runtime"
+require_relative "markdown/header"
+require_relative "markdown/parser"
 
 module Mdtoc
   class Node
@@ -43,7 +43,7 @@ module Mdtoc
 
     sig { returns(String) }
     def label
-      File.basename(@path, File.extname(@path)).gsub(/_+/, ' ').gsub(/\s+/, ' ').capitalize
+      File.basename(@path, File.extname(@path)).gsub(/_+/, " ").gsub(/\s+/, " ").capitalize
     end
 
     class DirNode < Node
@@ -52,7 +52,7 @@ module Mdtoc
         readme_path = T.let(nil, T.nilable(String))
         child_headers = Dir
           .each_child(@path)
-          .reject { |path| readme_path = File.join(@path, path) if path.casecmp?('readme.md') }
+          .reject { |path| readme_path = File.join(@path, path) if path.casecmp?("readme.md") }
           .sort!
           .flat_map { |path| Node.for_path(File.join(@path, path), @depth + 1).headers }
         return child_headers unless readme_path
