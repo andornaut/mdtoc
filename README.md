@@ -94,7 +94,7 @@ rake build                    # Build mdtoc-0.1.5.gem into the pkg directory
 rake default                  # Run the build, rubocop:autocorrect_all, sorbet and test tasks
 rake install                  # Build and install mdtoc-0.1.5.gem into system gems
 rake install:local            # Build and install mdtoc-0.1.5.gem into system gems without network access
-rake release[remote]          # Create tag v0.1.5 and build and push mdtoc-0.1.5.gem to rubygems.org
+rake release[remote]          # Create tag v0.2.0 and build and push mdtoc-0.2.0.gem to rubygems.org
 rake rubocop                  # Run RuboCop
 rake rubocop:autocorrect      # Autocorrect RuboCop offenses (only when it's safe)
 rake rubocop:autocorrect_all  # Autocorrect RuboCop offenses (safe and unsafe)
@@ -106,4 +106,10 @@ $ ruby -Ilib bin/mdtoc test/samples
 
 # Run mdtoc with test inputs, and write to a newly created output file
 $ f=$(mktemp) && ruby -Ilib bin/mdtoc -aco ${f} test/samples ; cat ${f}
+```
+
+### Publishing
+
+```bash
+rake release
 ```
