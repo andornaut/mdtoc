@@ -40,7 +40,7 @@ Usage: mdtoc [options] files or directories...
 Create a `Rakefile` with the contents below, then run
 [`rake`](https://github.com/ruby/rake) to:
 
-* `git pull`
+* `git pullgem push pkg/mdtoc-0.2.0.gem`
 * `git add` any *.md files
 * Run `mdtoc` to update the generated table of contents in the ./README.md file
 * Git commit and push any changes
