@@ -2,6 +2,7 @@
 .
 --ignore=sorbet/rbi/gems
 --ignore=.gem
+--ignore=vendor
 --allowed-extension=.rbi
 sorbet/rbi/gems/minitest.rbi
 sorbet/rbi/gems/minitest@5.27.0.rbi
