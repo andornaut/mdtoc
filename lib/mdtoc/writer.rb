@@ -3,8 +3,8 @@
 
 module Mdtoc
   module Writer
-    COMMENT_BEGIN = "<!-- mdtoc -->"
-    COMMENT_END = "<!-- mdtoc-end -->"
+    COMMENT_BEGIN = '<!-- mdtoc -->'
+    COMMENT_END = '<!-- mdtoc-end -->'
 
     class << self
       extend T::Sig
@@ -13,9 +13,7 @@ module Mdtoc
       def write(toc, path, append, create)
         validate_path(path, create)
         new_content = content(toc, path, append)
-        File.open(path, "w") do |f|
-          f.write(new_content)
-        end
+        File.write(path, new_content)
       end
 
       private
@@ -25,16 +23,11 @@ module Mdtoc
         toc = "#{COMMENT_BEGIN}\n#{toc}\n#{COMMENT_END}"
 
         begin
-          f = File.open(path)
-        rescue
-          # If File.open failed because the file didn't exist, then we know that --create
+          old_content = File.read(path)
+        rescue StandardError
+          # If File.read failed because the file didn't exist, then we know that --create
           # was specified due to the validation in validate_path.
           return "#{toc}\n"
-        end
-        begin
-          old_content = T.must(f.read)
-        ensure
-          f.close
         end
 
         if Regexp.new(Regexp.escape(COMMENT_BEGIN), Regexp::IGNORECASE).match?(old_content)

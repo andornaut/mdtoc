@@ -1,11 +1,39 @@
-inherit_gem:
-  rubocop-shopify: rubocop.yml
+# typed: false
+# frozen_string_literal: true
 
 plugins:
   - rubocop-sorbet
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'pkg/**/*'
+    - 'bin/*'
 
 Style/Documentation:
   Enabled: false
 
 Sorbet:
   Enabled: true
+
+Metrics/MethodLength:
+  Max: 25
+  Exclude:
+    - 'test/**/*.rb'
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+
+# Overrides for tests
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*.rb'
