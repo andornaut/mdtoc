@@ -9,10 +9,17 @@ module Mdtoc
     class Parser
       extend T::Sig
 
-      sig { params(depth: Integer, url: String).void }
-      def initialize(depth, url)
+      sig do
+        params(
+          depth: Integer,
+          url: String,
+          generator: FragmentGenerator
+        ).void
+      end
+      def initialize(depth, url, generator: FragmentGenerator::GitHub.new)
         @depth = depth
         @url = url
+        @generator = generator
       end
 
       sig { params(lines: T::Enumerable[String]).returns(T::Array[Header]) }
@@ -37,7 +44,7 @@ module Mdtoc
         num_hashes = m[1]&.count('#') || 1
         depth = @depth + num_hashes - 1
         label = m[2] || ''
-        HeaderWithFragment.new(depth, label, @url)
+        HeaderWithFragment.new(depth, label, @url, generator: @generator)
       end
     end
   end

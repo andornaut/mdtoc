@@ -33,7 +33,9 @@ class TestMarkdownHeader < Minitest::Test
       '/a#remove--back-slash'
     ]
     actuals = sample.map do |label|
-      Mdtoc::Markdown::HeaderWithFragment.new(1, label, '/a').instance_variable_get(:@url)
+      Mdtoc::Markdown::HeaderWithFragment.new(
+        1, label, '/a', generator: Mdtoc::Markdown::FragmentGenerator::GitHub.new
+      ).instance_variable_get(:@url)
     end
 
     expecteds.zip(actuals).each { |expected, actual| assert_equal(expected, actual) }
@@ -82,7 +84,9 @@ class TestMarkdownHeader < Minitest::Test
   end
 
   def test_to_s_with_fragment
-    str = Mdtoc::Markdown::HeaderWithFragment.new(0, 'a', '/a').to_s
+    str = Mdtoc::Markdown::HeaderWithFragment.new(
+      0, 'a', '/a', generator: Mdtoc::Markdown::FragmentGenerator::GitHub.new
+    ).to_s
 
     assert_equal('* [a](/a#a)', str)
   end

@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
+require_relative 'fragment_generator'
 
 module Mdtoc
   module Markdown
@@ -37,10 +38,17 @@ module Mdtoc
     end
 
     class HeaderWithFragment < Header
-      sig { params(depth: Integer, label: String, url: String).void }
-      def initialize(depth, label, url)
-        super
-        @url += "##{@label.downcase.tr(' ', '-').gsub(/[^\w-]/, '')}"
+      sig do
+        params(
+          depth: Integer,
+          label: String,
+          url: String,
+          generator: FragmentGenerator
+        ).void
+      end
+      def initialize(depth, label, url, generator:)
+        super(depth, label, url)
+        @url += "##{generator.generate(@label)}"
       end
     end
   end
