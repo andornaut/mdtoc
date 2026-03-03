@@ -43,12 +43,12 @@ class TestNode < Minitest::Test
   def test_for_path_with_directory_returns_dir_node
     node = Mdtoc::Node.for_path("test/samples")
 
-    assert_kind_of(Mdtoc::Node::DirNode, node)
+    assert(node.is_a?(Mdtoc::Node::DirNode))
   end
 
   def test_for_path_with_file_returns_file_node
     node = Mdtoc::Node.for_path("test/samples/README.md")
 
-    assert_kind_of(Mdtoc::Node::FileNode, node)
+    assert(node.is_a?(Mdtoc::Node::FileNode))
   end
 end
