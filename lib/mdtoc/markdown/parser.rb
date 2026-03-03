@@ -3,6 +3,7 @@
 
 require 'sorbet-runtime'
 require_relative 'header'
+require_relative 'fragment_generator'
 
 module Mdtoc
   module Markdown
@@ -30,11 +31,13 @@ module Mdtoc
         prev_line = T.let(nil, T.nilable(String))
 
         lines.each do |line|
+          stripped = line.strip
+
           # Handle HTML comments
-          if line.strip.start_with?('<!--') && !line.strip.end_with?('-->')
-            in_html_comment = true
+          if stripped.start_with?('<!--')
+            in_html_comment = true unless stripped.end_with?('-->')
             next
-          elsif in_html_comment && line.strip.end_with?('-->')
+          elsif in_html_comment && stripped.end_with?('-->')
             in_html_comment = false
             next
           end
@@ -56,9 +59,9 @@ module Mdtoc
 
           # Handle Setext headers (Title \n ===)
           if prev_line && !prev_line.strip.empty?
-            if line.strip.match?(/^=+$/)
+            if stripped.match?(/^=+$/)
               headers << HeaderWithFragment.new(@depth, prev_line.strip, @url, generator: @generator)
-            elsif line.strip.match?(/^-+$/)
+            elsif stripped.match?(/^-+$/)
               headers << HeaderWithFragment.new(@depth + 1, prev_line.strip, @url, generator: @generator)
             end
           end
