@@ -79,10 +79,11 @@ See [andornaut/til](https://github.com/andornaut/til/blob/master/Rakefile) for a
 Requirements:
 
 * [Bundler](https://bundler.io/)
+* [chruby](https://github.com/postmodern/chruby) (recommended)
 
 ```bash
-# Install dependencies
-bundle
+# Setup development environment
+bin/setup
 ```
 
 ### Tasks
@@ -90,17 +91,13 @@ bundle
 ```bash
 # List rake tasks
 $ rake -T
-rake build                    # Build mdtoc-0.1.5.gem into the pkg directory
-rake default                  # Run the build, rubocop:autocorrect_all, sorbet and test tasks
-rake install                  # Build and install mdtoc-0.1.5.gem into system gems
-rake install:local            # Build and install mdtoc-0.1.5.gem into system gems without network access
-rake release[remote]          # Create tag v0.2.0 and build and push mdtoc-0.2.0.gem to rubygems.org
+rake build                    # Build gem into the pkg directory
+rake default                  # Run the build, rubocop, sorbet and test tasks
+rake install                  # Build and install gem into system gems
 rake rubocop                  # Run RuboCop
-rake rubocop:autocorrect      # Autocorrect RuboCop offenses (only when it's safe)
-rake rubocop:autocorrect_all  # Autocorrect RuboCop offenses (safe and unsafe)
 rake sorbet                   # Run the Sorbet type checker
 rake test                     # Run tests
-
+```
 # Run mdtoc with test inputs
 $ ruby -Ilib bin/mdtoc test/samples
 
