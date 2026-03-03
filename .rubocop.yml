@@ -9,6 +9,7 @@ AllCops:
   Exclude:
     - 'pkg/**/*'
     - 'bin/*'
+    - 'vendor/**/*'
 
 Style/Documentation:
   Enabled: false
