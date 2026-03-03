@@ -16,6 +16,9 @@ Style/Documentation:
 Sorbet:
   Enabled: true
 
+Sorbet/EmptyLineAfterSig:
+  Enabled: false
+
 Metrics/MethodLength:
   Max: 25
   Exclude:
