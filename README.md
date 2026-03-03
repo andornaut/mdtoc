@@ -97,7 +97,7 @@ rake install                  # Build and install gem into system gems
 rake rubocop                  # Run RuboCop
 rake sorbet                   # Run the Sorbet type checker
 rake test                     # Run tests
-```
+
 # Run mdtoc with test inputs
 $ ruby -Ilib bin/mdtoc test/samples
 
