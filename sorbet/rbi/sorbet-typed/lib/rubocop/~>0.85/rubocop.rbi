@@ -5,7 +5,7 @@
 #
 #   https://github.com/sorbet/sorbet-typed/edit/master/lib/rubocop/~>0.85/rubocop.rbi
 #
-# typed: strict
+# typed: true
 
 class RuboCop::CLI
   STATUS_ERROR = ::T.let(nil, ::T.untyped)
