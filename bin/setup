@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'fileutils'
+
+# path to your application root.
+APP_ROOT = File.expand_path('..', __dir__)
+
+def system!(*args)
+  system(*args) || abort("
+== Command #{args} failed ==")
+end
+
+FileUtils.chdir APP_ROOT do
+  # This script is a way to set up a development environment or update your current one.
+  # You can run it with `bin/setup`.
+
+  puts '== Installing dependencies =='
+  system! 'gem install bundler --conservative'
+  system('bundle check') || system!('bundle install')
+
+  puts "
+== Removing old RBIs =="
+  FileUtils.rm_rf('sorbet/rbi/gems')
+  FileUtils.rm_rf('sorbet/rbi/todo.rbi')
+
+  puts "
+== Generating RBIs =="
+  system! 'bundle exec tapioca gems'
+
+  puts "
+== Initializing Sorbet =="
+  system! 'bundle exec srb tc'
+
+  puts "
+== Setup complete! =="
+end

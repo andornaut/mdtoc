@@ -1,3 +1,7 @@
 --dir
 .
+--ignore=sorbet/rbi/gems
 --ignore=.gem
+--allowed-extension=.rbi
+sorbet/rbi/gems/minitest.rbi
+sorbet/rbi/gems/minitest@5.27.0.rbi
