@@ -7,4 +7,4 @@ gemspec
 
 gem 'ruby_parser' # For Sorbet hidden-definitions generation
 gem 'sorted_set' # For Sorbet hidden-definitions generation
-gem 'tapioca', '0.15.1', require: false
+gem 'tapioca', '0.17.10', require: false
