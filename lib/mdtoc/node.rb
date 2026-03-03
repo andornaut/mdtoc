@@ -1,15 +1,16 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "pathname"
-require "sorbet-runtime"
-require_relative "markdown/header"
-require_relative "markdown/parser"
+require 'pathname'
+require 'sorbet-runtime'
+require_relative 'markdown/header'
+require_relative 'markdown/parser'
 
 module Mdtoc
   class Node
     extend T::Helpers
     extend T::Sig
+
     abstract!
 
     class << self
@@ -43,18 +44,26 @@ module Mdtoc
 
     sig { returns(String) }
     def label
-      File.basename(@path, File.extname(@path)).gsub(/_+/, " ").gsub(/\s+/, " ").capitalize
+      File.basename(@path, File.extname(@path)).gsub(/_+/, ' ').gsub(/\s+/, ' ').capitalize
     end
 
     class DirNode < Node
       sig { override.returns(T::Array[Mdtoc::Markdown::Header]) }
       def headers
         readme_path = T.let(nil, T.nilable(String))
-        child_headers = Dir
-          .each_child(@path)
-          .reject { |path| readme_path = File.join(@path, path) if path.casecmp?("readme.md") }
-          .sort!
-          .flat_map { |path| Node.for_path(File.join(@path, path), @depth + 1).headers }
+        children = Dir.each_child(@path).reject do |path|
+          if path.casecmp?('readme.md')
+            readme_path = File.join(@path, path)
+            true
+          else
+            false
+          end
+        end
+
+        child_headers = children.sort.flat_map do |path|
+          Node.for_path(File.join(@path, path), @depth + 1).headers
+        end
+
         return child_headers unless readme_path
 
         # Include the headers from the README at the beginning.
