@@ -29,8 +29,10 @@ module Mdtoc
           # 1. Downcase
           # 2. Replace spaces with dashes
           # 3. Remove non-alphanumeric characters (keeping dashes, dots and underscores)
-          # 4. Remove leading/trailing dashes and dots (common in many implementations)
+          # 4. Collapse multiple dashes
+          # 5. Remove leading/trailing dashes and dots (common in many implementations)
           fragment = label.downcase.tr(' ', '-').gsub(/[^\w.-]/, '')
+          fragment = fragment.gsub(/-+/, '-')
           fragment = fragment.gsub(/^[.-]+|[.-]+$/, '')
 
           count = @counts[fragment]

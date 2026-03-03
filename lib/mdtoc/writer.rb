@@ -1,6 +1,9 @@
 # typed: true
 # frozen_string_literal: true
 
+require 'fileutils'
+require 'tempfile'
+
 module Mdtoc
   module Writer
     COMMENT_BEGIN = '<!-- mdtoc -->'
@@ -13,7 +16,16 @@ module Mdtoc
       def write(toc, path, append, create)
         validate_path(path, create)
         new_content = content(toc, path, append)
-        File.write(path, new_content)
+
+        # Write to a temporary file and rename it to the target path to ensure atomic writing.
+        temp = Tempfile.new(File.basename(path), File.dirname(path))
+        begin
+          temp.write(new_content)
+          temp.close
+          FileUtils.mv(temp.path, path)
+        ensure
+          temp.close!
+        end
       end
 
       private
