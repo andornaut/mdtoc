@@ -27,6 +27,9 @@ module Mdtoc
 
       sig { params(lines: T::Enumerable[String]).returns(T::Array[Header]) }
       def headers(lines)
+        @in_code_block = false
+        @in_html_comment = false
+
         headers = T.let([], T::Array[Header])
         prev_line = T.let(nil, T.nilable(String))
 

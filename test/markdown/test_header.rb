@@ -21,7 +21,7 @@ class TestMarkdownHeader < Minitest::Test
     ]
     expecteds = [
       '/a#spaces-1-space',
-      '/a#spaces--2-spaces',
+      '/a#spaces-2-spaces',
       '/a#remove1-tabs',
       '/a#remove1-carriage-returns',
       '/a#remove1-newlines',
@@ -29,8 +29,8 @@ class TestMarkdownHeader < Minitest::Test
       '/a#spaces-leading-and-trailing',
       '/a#symbols-_',
       '/a#alphabet-123-abc-def-ghi',
-      '/a#remove--forward-slash',
-      '/a#remove--back-slash'
+      '/a#remove-forward-slash',
+      '/a#remove-back-slash'
     ]
     actuals = sample.map do |label|
       Mdtoc::Markdown::HeaderWithFragment.new(
@@ -66,11 +66,13 @@ class TestMarkdownHeader < Minitest::Test
   def test_strip_links
     sample = [
       '[label](url)',
-      'prefix [label](url) suffix'
+      'prefix [label](url) suffix',
+      '[Link 1](u1) and [Link 2](u2)'
     ]
     expecteds = [
       'label',
-      'prefix label suffix'
+      'prefix label suffix',
+      'Link 1 and Link 2'
     ]
     actuals = sample.map { |label| Mdtoc::Markdown::Header.new(0, label, '/a').instance_variable_get(:@label) }
 
@@ -94,7 +96,7 @@ class TestMarkdownHeader < Minitest::Test
   def test_github_fragment_complex
     generator = Mdtoc::Markdown::FragmentGenerator::GitHub.new
     assert_equal('header-1', generator.generate('Header 1'))
-    assert_equal('dots..and--dashes', generator.generate('Dots..and--dashes'))
+    assert_equal('dots..and-dashes', generator.generate('Dots..and--dashes'))
     assert_equal('symbols', generator.generate('Symbols !@#$%^&*()'))
     assert_equal('emoji', generator.generate('Emoji 🚀'))
     assert_equal('non-ascii-unicode', generator.generate('Non-ASCII unicode áéíóú'))

@@ -33,7 +33,7 @@ module Mdtoc
 
       def normalize_label(label)
         label = label.strip.tr("\t\n\r", '') # Remove whitespace characters other than spaces.
-        label.gsub(/\[(.*)\]\(.*\)/, '\1') # Remove links
+        label.gsub(/\[(.*?)\]\(.*?\)/, '\1') # Remove links
       end
     end
 
