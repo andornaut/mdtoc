@@ -52,4 +52,51 @@ class TestMarkdownParser < Minitest::Test
       assert_equal(10 + i, headers[i].instance_variable_get(:@depth))
     end
   end
+
+  def test_headers_without_spaces
+    parser = Mdtoc::Markdown::Parser.new(0, '/')
+    sample = <<~END
+      #title1
+      ##title2
+    END
+
+    headers = parser.headers(sample.each_line)
+
+    assert_equal(2, headers.size)
+    assert_equal('title1', headers[0].instance_variable_get(:@label))
+    assert_equal('title2', headers[1].instance_variable_get(:@label))
+  end
+
+  def test_setext_headers
+    parser = Mdtoc::Markdown::Parser.new(0, '/')
+    sample = <<~END
+      Title 1
+      =======
+      Title 2
+      -------
+    END
+
+    headers = parser.headers(sample.each_line)
+
+    assert_equal(2, headers.size)
+    assert_equal('Title 1', headers[0].instance_variable_get(:@label))
+    assert_equal(0, headers[0].instance_variable_get(:@depth))
+    assert_equal('Title 2', headers[1].instance_variable_get(:@label))
+    assert_equal(1, headers[1].instance_variable_get(:@depth))
+  end
+
+  def test_skips_html_comments
+    parser = Mdtoc::Markdown::Parser.new(0, '/')
+    sample = <<~END
+      <!--
+      # commented
+      -->
+      # not commented
+    END
+
+    headers = parser.headers(sample.each_line)
+
+    assert_equal(1, headers.size)
+    assert_equal('not commented', headers[0].instance_variable_get(:@label))
+  end
 end

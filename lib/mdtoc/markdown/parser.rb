@@ -24,16 +24,49 @@ module Mdtoc
 
       sig { params(lines: T::Enumerable[String]).returns(T::Array[Header]) }
       def headers(lines)
-        # TODO: Skip headers within multi-line comments.
-        # TODO: Handle --- and === style headers.
-        skip = T.let(false, T::Boolean)
-        lines.filter_map do |line|
-          # Skip code blocks.
-          skip = !skip if line.start_with?('```') && !T.must(line[3..]).strip.end_with?('```')
-          next if skip || !line.start_with?('#')
+        headers = T.let([], T::Array[Header])
+        in_code_block = T.let(false, T::Boolean)
+        in_html_comment = T.let(false, T::Boolean)
+        prev_line = T.let(nil, T.nilable(String))
 
-          header(line)
+        lines.each do |line|
+          # Handle HTML comments
+          if line.strip.start_with?('<!--') && !line.strip.end_with?('-->')
+            in_html_comment = true
+            next
+          elsif in_html_comment && line.strip.end_with?('-->')
+            in_html_comment = false
+            next
+          end
+          next if in_html_comment
+
+          # Handle Code blocks
+          if line.start_with?('```') && !T.must(line[3..]).strip.end_with?('```')
+            in_code_block = !in_code_block
+            next
+          end
+          next if in_code_block
+
+          # Handle ATX headers (# Title)
+          if line.start_with?('#')
+            headers << header(line)
+            prev_line = line
+            next
+          end
+
+          # Handle Setext headers (Title \n ===)
+          if prev_line && !prev_line.strip.empty?
+            if line.strip.match?(/^=+$/)
+              headers << HeaderWithFragment.new(@depth, prev_line.strip, @url, generator: @generator)
+            elsif line.strip.match?(/^-+$/)
+              headers << HeaderWithFragment.new(@depth + 1, prev_line.strip, @url, generator: @generator)
+            end
+          end
+
+          prev_line = line
         end
+
+        headers
       end
 
       private
