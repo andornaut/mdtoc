@@ -32,10 +32,10 @@ module Mdtoc
           # 4. Remove leading/trailing dashes and dots (common in many implementations)
           fragment = label.downcase.tr(' ', '-').gsub(/[^\w.-]/, '')
           fragment = fragment.gsub(/^[.-]+|[.-]+$/, '')
-          
+
           count = @counts[fragment]
           @counts[fragment] += 1
-          
+
           if count.positive?
             "#{fragment}-#{count}"
           else
