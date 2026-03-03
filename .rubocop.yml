@@ -1,7 +1,7 @@
 # typed: false
 # frozen_string_literal: true
 
-require:
+plugins:
   - rubocop-sorbet
 
 AllCops:
