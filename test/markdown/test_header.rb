@@ -27,7 +27,7 @@ class TestMarkdownHeader < Minitest::Test
       '/a#remove1-newlines',
       '/a#remove2-tabs',
       '/a#spaces-leading-and-trailing',
-      '/a#symbols-_-',
+      '/a#symbols-_',
       '/a#alphabet-123-abc-def-ghi',
       '/a#remove--forward-slash',
       '/a#remove--back-slash'
@@ -89,5 +89,14 @@ class TestMarkdownHeader < Minitest::Test
     ).to_s
 
     assert_equal('* [a](/a#a)', str)
+  end
+
+  def test_github_fragment_complex
+    generator = Mdtoc::Markdown::FragmentGenerator::GitHub.new
+    assert_equal('header-1', generator.generate('Header 1'))
+    assert_equal('dots..and--dashes', generator.generate('Dots..and--dashes'))
+    assert_equal('symbols', generator.generate('Symbols !@#$%^&*()'))
+    assert_equal('emoji', generator.generate('Emoji 🚀'))
+    assert_equal('non-ascii-unicode', generator.generate('Non-ASCII unicode áéíóú'))
   end
 end

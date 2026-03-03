@@ -30,9 +30,9 @@ class TestNode < Minitest::Test
       * [Title](test/samples/README.md#title)
         * [2](test/samples/README.md#2)
           * [3](test/samples/README.md#3)
-        * [2](test/samples/README.md#2)
+        * [2](test/samples/README.md#2-1)
             * [4](test/samples/README.md#4)
-        * [2](test/samples/README.md#2)
+        * [2](test/samples/README.md#2-2)
     END
     node = Mdtoc::Node::FileNode.new('test/samples/README.md', 0)
     actual = "#{node.headers.join("\n")}\n"
