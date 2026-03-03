@@ -20900,7 +20900,7 @@ class RubyLexer
 
   # The StringScanner for this lexer.
   #
-  # source://ruby_parser//lib/ruby_lexer.rex.rb#51
+  # source://ruby_parser//lib/ruby_lexer.rex.rb#58
   def match; end
 
   # The match groups for the current scan.
@@ -21179,7 +21179,7 @@ class RubyLexer
 
   # The StringScanner for this lexer.
   #
-  # source://ruby_parser//lib/ruby_lexer.rb#1095
+  # source://ruby_parser//lib/ruby_lexer.rex.rb#51
   def ss=(o); end
 
   # The position of the start of the current line. Only available if the
@@ -21374,7 +21374,7 @@ module RubyLexer::SSWrapper
   #
   # @return [Boolean]
   #
-  # source://ruby_parser//lib/ruby_lexer.rb#1001
+  # source://ruby_parser//lib/ruby_lexer.rb#1005
   def bol?; end
 
   # source://ruby_parser//lib/ruby_lexer.rb#1007
@@ -21387,7 +21387,7 @@ module RubyLexer::SSWrapper
 
   # @return [Boolean]
   #
-  # source://ruby_parser//lib/ruby_lexer.rb#1013
+  # source://ruby_parser//lib/ruby_lexer.rb#1017
   def eos?; end
 
   # source://ruby_parser//lib/ruby_lexer.rb#1019
@@ -21485,7 +21485,7 @@ class RubyLexer::State
   # source://ruby_parser//lib/ruby_lexer.rb#867
   def names=(_arg0); end
 
-  # source://ruby_parser//lib/ruby_lexer.rb#891
+  # source://ruby_parser//lib/ruby_lexer.rb#900
   def to_s; end
 
   # @raise [ArgumentError]
@@ -21652,7 +21652,7 @@ class RubyParser
 
   # @raise [RubyParser::SyntaxError]
   #
-  # source://ruby_parser//lib/ruby_parser.rb#31
+  # source://ruby_parser//lib/ruby_parser.rb#44
   def parse(s, f = T.unsafe(nil), t = T.unsafe(nil)); end
 
   # @raise [RubyParser::SyntaxError]
@@ -22166,7 +22166,7 @@ module RubyParserStuff
   # Parse +str+ at path +file+ and return a sexp. Raises
   # Timeout::Error if it runs for more than +time+ seconds.
   #
-  # source://ruby_parser//lib/ruby_parser_extras.rb#1598
+  # source://ruby_parser//lib/ruby_parser_extras.rb#1614
   def parse(str, file = T.unsafe(nil), time = T.unsafe(nil)); end
 
   # source://ruby_parser//lib/ruby_parser_extras.rb#1172
@@ -22193,7 +22193,7 @@ module RubyParserStuff
   # source://ruby_parser//lib/ruby_parser_extras.rb#1616
   def remove_begin(node); end
 
-  # source://ruby_parser//lib/ruby_parser_extras.rb#1695
+  # source://ruby_parser//lib/ruby_parser_extras.rb#1723
   def remove_whitespace_width(line, remove_width = T.unsafe(nil)); end
 
   # source://ruby_parser//lib/ruby_parser_extras.rb#1630
@@ -22212,7 +22212,7 @@ module RubyParserStuff
 
   # TODO: for now..? could check the tree, but meh?
   #
-  # source://ruby_parser//lib/ruby_parser_extras.rb#1616
+  # source://ruby_parser//lib/ruby_parser_extras.rb#1628
   def value_expr(node); end
 
   # source://ruby_parser//lib/ruby_parser_extras.rb#1678
@@ -22229,7 +22229,7 @@ module RubyParserStuff
 
   # @raise [RubyParser::SyntaxError]
   #
-  # source://ruby_parser//lib/ruby_parser_extras.rb#1672
+  # source://ruby_parser//lib/ruby_parser_extras.rb#1676
   def yyerror(msg); end
 
   class << self
@@ -22431,23 +22431,6 @@ RubyParserStuff::VERSION = T.let(T.unsafe(nil), String)
 
 # source://ruby_parser//lib/rp_extensions.rb#40
 class Sexp < ::Array
-  # source://sexp_processor/4.17.5/lib/sexp.rb#35
-  def initialize(*args); end
-
-  # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#30
-  def /(pattern); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#76
-  def ==(obj); end
-
-  # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#8
-  def =~(pattern); end
-
-  def _concat(*_arg0); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#93
-  def array_type?; end
-
   # @return [Boolean]
   #
   # source://ruby_parser//lib/rp_extensions.rb#47
@@ -22456,85 +22439,10 @@ class Sexp < ::Array
   # source://ruby_parser//lib/ruby_parser_extras.rb#10
   def check_line_numbers; end
 
-  # source://sexp_processor/4.17.5/lib/sexp.rb#28
-  def comments; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#28
-  def comments=(_arg0); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#99
-  def compact; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#113
-  def deep_each(&block); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#125
-  def depth; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#132
-  def each_of_type(t, &b); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#144
-  def each_sexp; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#80
-  def eql?(o); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#23
-  def file; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#23
-  def file=(_arg0); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#158
-  def find_and_replace_all(from, to); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#199
-  def find_node(name, delete = T.unsafe(nil)); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#217
-  def find_nodes(name); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#171
-  def gsub(pattern, repl); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#84
-  def hash; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#284
-  def head; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#190
-  def inspect; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#228
-  def line(n = T.unsafe(nil)); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#13
-  def line=(_arg0); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#241
-  def line_max; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#18
-  def line_max=(_arg0); end
-
   # Returns the minimum line number of the children of self.
   #
   # source://ruby_parser//lib/ruby_parser_extras.rb#21
   def line_min; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#72
-  def map(&blk); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#248
-  def mass; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#255
-  def method_missing(meth, delete = T.unsafe(nil)); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#63
-  def new(*body); end
 
   # @return [Boolean]
   #
@@ -22548,98 +22456,6 @@ class Sexp < ::Array
   #
   # source://ruby_parser//lib/rp_extensions.rb#41
   def paren=(_arg0); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#272
-  def pretty_print(q); end
-
-  # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#57
-  def replace_sexp(pattern, &block); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#267
-  def respond_to?(msg, private = T.unsafe(nil)); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#299
-  def rest(from = T.unsafe(nil)); end
-
-  # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#19
-  def satisfy?(pattern); end
-
-  # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#38
-  def search_each(pattern, &block); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#299
-  def sexp_body(from = T.unsafe(nil)); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#306
-  def sexp_body=(v); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#284
-  def sexp_type; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#291
-  def sexp_type=(v); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#326
-  def structure; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#338
-  def sub(pattern, repl); end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#368
-  def to_a; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#190
-  def to_s; end
-
-  # source://sexp_processor/4.17.5/lib/sexp.rb#377
-  def value; end
-
-  class << self
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#155
-    def -(arg); end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#93
-    def _; end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#104
-    def ___; end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#144
-    def all(*args); end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#133
-    def any(*args); end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#122
-    def atom; end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#170
-    def child(child); end
-
-    # source://sexp_processor/4.17.5/lib/sexp.rb#44
-    def from_array(a); end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#113
-    def include(child); end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#208
-    def k(klass); end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#190
-    def m(*values); end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#155
-    def not?(arg); end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#78
-    def q(*args); end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#82
-    def s(*args); end
-
-    # source://sexp_processor/4.17.5/lib/sexp_matcher.rb#180
-    def t(name); end
-  end
 end
 
 # HACK HACK HACK HACK HACK HACK HACK HACK HACK HACK HACK HACK
