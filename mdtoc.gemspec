@@ -22,9 +22,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('sorbet')
   # From https://github.com/Shopify/shopify/blob/master/Gemfile
   spec.add_development_dependency('rubocop', '~> 1.50')
-  spec.add_development_dependency('rubocop-sorbet', '~> 0.10.0')
+  spec.add_development_dependency('rubocop-sorbet', '~> 0.12.0')
   # `unparser` is need by the `Sorbet/SignatureBuildOrder` autocorrect feature.
-  spec.add_development_dependency('unparser', '~> 0.6.0')
+  spec.add_development_dependency('unparser', '~> 0.8.0')
 
   spec.add_dependency('sorbet-runtime')
   spec.metadata['rubygems_mfa_required'] = 'true'
