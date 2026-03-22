@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.executables << 'mdtoc'
   spec.files = Dir['lib/**/*.rb', 'bin/*', 'README.md', 'LICENSE']
 
-  spec.add_development_dependency('minitest', '~> 5.25')
+  spec.add_development_dependency('minitest', '~> 6.0')
   spec.add_development_dependency('rake')
   spec.add_development_dependency('sorbet')
   # From https://github.com/Shopify/shopify/blob/master/Gemfile
