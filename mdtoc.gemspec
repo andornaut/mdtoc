@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = File.read('README.md')
   spec.homepage = 'https://github.com/andornaut/mdtoc'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 2.7.2'
+  spec.required_ruby_version = '>= 3.1.0'
 
   spec.executables << 'mdtoc'
   spec.files = Dir['lib/**/*.rb', 'bin/*', 'README.md', 'LICENSE']
