@@ -28,9 +28,7 @@ module Mdtoc
       def render(paths)
         headers = paths.flat_map { |path| for_path(path).headers }
         min_depth = headers.map(&:depth).min || 0
-        if min_depth.positive?
-          headers.each { |h| h.depth -= min_depth }
-        end
+        headers.each { |h| h.depth -= min_depth } if min_depth.positive?
         headers.join("\n")
       end
     end
