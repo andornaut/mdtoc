@@ -40,6 +40,16 @@ class TestNode < Minitest::Test
     assert_equal(expected, actual)
   end
 
+  def test_render_left_justifies_output
+    expected = <<~END
+      * [F](test/samples/a/d/f.md)
+        * [f 2](test/samples/a/d/f.md#f-2)
+    END
+    actual = "#{Mdtoc::Node.render(['test/samples/a/d'])}\n"
+
+    assert_equal(expected, actual)
+  end
+
   def test_for_path_with_directory_returns_dir_node
     node = Mdtoc::Node.for_path('test/samples')
 
