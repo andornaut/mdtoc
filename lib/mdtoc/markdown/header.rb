@@ -9,6 +9,9 @@ module Mdtoc
     class Header
       extend T::Sig
 
+      sig { returns(Integer) }
+      attr_accessor :depth
+
       sig { params(depth: Integer, label: String, url: String).void }
       def initialize(depth, label, url)
         raise ArgumentError, "Header depth must be >= 0, but was #{depth}" if depth.negative?

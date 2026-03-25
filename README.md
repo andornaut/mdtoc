@@ -15,7 +15,7 @@ gem install mdtoc
 ## Usage
 
 ```bash
-$ mdtoc --help
+mdtoc --help
 Usage: mdtoc [options] files or directories...
     -h, --help                       Show this message
     -o, --output PATH                Update a table of contents in the file at PATH
@@ -25,23 +25,23 @@ Usage: mdtoc [options] files or directories...
 
 1. Add a `<!-- mdtoc -->` tag to a Markdown file.
 
-  ```bash
-  echo '<!-- mdtoc -->' >> README.md
-  ```
+    ```bash
+    echo '<!-- mdtoc -->' >> README.md
+    ```
 
 2. Run `mdtoc` and specify input files or directories (eg. the "test/samples" directory) and an output file (eg. "README.md").
 
-  ```bash
-  mdtoc -aco README.md test/samples
-  ```
+    ```bash
+    mdtoc -aco README.md test/samples
+    ```
 
 ## Example Rakefile
 
 Create a `Rakefile` with the contents below, then run
 [`rake`](https://github.com/ruby/rake) to:
 
-* `git pullgem push pkg/mdtoc-0.2.0.gem`
-* `git add` any *.md files
+* `git pull`
+* `git add` any `*.md` files
 * Run `mdtoc` to update the generated table of contents in the ./README.md file
 * Git commit and push any changes
 
@@ -90,7 +90,7 @@ bin/setup
 
 ```bash
 # List rake tasks
-$ rake -T
+rake -T
 rake build                    # Build gem into the pkg directory
 rake default                  # Run the build, rubocop, sorbet and test tasks
 rake install                  # Build and install gem into system gems
@@ -99,10 +99,10 @@ rake sorbet                   # Run the Sorbet type checker
 rake test                     # Run tests
 
 # Run mdtoc with test inputs
-$ ruby -Ilib bin/mdtoc test/samples
+ruby -Ilib bin/mdtoc test/samples
 
 # Run mdtoc with test inputs, and write to a newly created output file
-$ f=$(mktemp) && ruby -Ilib bin/mdtoc -aco ${f} test/samples ; cat ${f}
+f=$(mktemp) && ruby -Ilib bin/mdtoc -aco ${f} test/samples ; cat ${f}
 ```
 
 ### Publishing

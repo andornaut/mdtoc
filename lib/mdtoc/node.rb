@@ -26,9 +26,12 @@ module Mdtoc
 
       sig { params(paths: T::Array[String]).returns(String) }
       def render(paths)
-        paths
-          .flat_map { |path| for_path(path).headers }
-          .join("\n")
+        headers = paths.flat_map { |path| for_path(path).headers }
+        min_depth = headers.map(&:depth).min || 0
+        if min_depth.positive?
+          headers.each { |h| h.depth -= min_depth }
+        end
+        headers.join("\n")
       end
     end
 
