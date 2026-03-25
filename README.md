@@ -107,6 +107,7 @@ f=$(mktemp) && ruby -Ilib bin/mdtoc -aco ${f} test/samples ; cat ${f}
 
 ### Publishing
 
-```bash
-rake release
-```
+1. Bump version in `lib/mdtoc/version.rb`
+2. Run `bundle install` to update `Gemfile.lock`
+3. Commit the changes
+4. Run `rake release` to publish the gem to RubyGems, create the git tag, and push
