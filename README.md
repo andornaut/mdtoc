@@ -40,10 +40,9 @@ Usage: mdtoc [options] files or directories...
 Create a `Rakefile` with the contents below, then run
 [`rake`](https://github.com/ruby/rake) to:
 
-* `git pull`
-* `git add` any `*.md` files
 * Run `mdtoc` to update the generated table of contents in the ./README.md file
-* Git commit and push any changes
+* `git add` any `*.md` files
+* Git commit, pull, and push any changes
 
 ```ruby
 task default: %w[mdtoc]
@@ -57,7 +56,7 @@ task :mdtoc do
       exit 1
     fi
     mdtoc --append --create --output README.md docs/
-    git add README.md docs/**/*.md 2>/dev/null || true
+    git add README.md docs/*.md
     git commit -qm 'Update TOC' || true
     git pull
     git push
