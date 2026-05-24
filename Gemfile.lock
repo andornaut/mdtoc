@@ -60,18 +60,18 @@ GEM
     ruby_parser (3.22.0)
       racc (~> 1.5)
       sexp_processor (~> 4.16)
-    rubydex (0.2.0-x86_64-linux)
+    rubydex (0.2.3-x86_64-linux)
     sexp_processor (4.17.5)
-    sorbet (0.6.13185)
-      sorbet-static (= 0.6.13185)
-    sorbet-runtime (0.6.13185)
-    sorbet-static (0.6.13185-x86_64-linux)
-    sorbet-static-and-runtime (0.6.13185)
-      sorbet (= 0.6.13185)
-      sorbet-runtime (= 0.6.13185)
+    sorbet (0.6.13249)
+      sorbet-static (= 0.6.13249)
+    sorbet-runtime (0.6.13249)
+    sorbet-static (0.6.13249-x86_64-linux)
+    sorbet-static-and-runtime (0.6.13249)
+      sorbet (= 0.6.13249)
+      sorbet-runtime (= 0.6.13249)
     sorted_set (1.1.0)
       rbtree
-    spoom (1.7.13)
+    spoom (1.7.15)
       erubi (>= 1.10.0)
       prism (>= 0.28.0)
       rbi (>= 0.3.3)
@@ -79,7 +79,7 @@ GEM
       rexml (>= 3.2.6)
       sorbet-static-and-runtime (>= 0.5.10187)
       thor (>= 0.19.2)
-    tapioca (0.19.0)
+    tapioca (0.19.1)
       benchmark
       bundler (>= 2.2.25)
       netrc (>= 0.11.0)
@@ -87,7 +87,7 @@ GEM
       rbi (>= 0.3.7)
       require-hooks (>= 0.2.2)
       rubydex (>= 0.1.0.beta10)
-      sorbet-static-and-runtime (>= 0.5.11087)
+      sorbet-static-and-runtime (>= 0.6.12698)
       spoom (>= 1.7.9)
       thor (>= 1.2.0)
       tsort
@@ -113,7 +113,7 @@ DEPENDENCIES
   ruby_parser
   sorbet
   sorted_set
-  tapioca (= 0.19.0)
+  tapioca (= 0.19.1)
   unparser (~> 0.8.0)
 
 BUNDLED WITH
