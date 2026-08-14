@@ -1,5 +1,8 @@
 version: 2
 updates:
+  # Resolution needs a Ruby version, and Dependabot takes only what the Gemfile
+  # declares: the `ruby file:` directive there is what supplies it. Without one
+  # it resolves against its own default and cannot satisfy gems requiring newer.
   - package-ecosystem: "bundler"
     directory: "/"
     schedule:
