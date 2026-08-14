@@ -1,0 +1,69 @@
+name: Test
+
+# Every branch, not just main and pull requests: work lands on main directly as
+# often as it arrives through one, so a check that only runs on main is a check
+# that runs after the fact.
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+  # Called by the release workflow, so that nothing is published that this has
+  # not passed. Workflows do not wait on each other, so a green Test run beside
+  # a release says nothing about whether the release waited for it.
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Keyed on the branch rather than the ref, so the push event and the pull
+# request event for one branch share a group instead of running the same checks
+# twice. Keyed by the calling workflow as well, so the run started by a push and
+# the run the release workflow calls do not cancel each other. Qualified by the
+# repository the branch lives in, since a fork names its branches itself: a pull
+# request from a fork's main would otherwise share a group with a push to this
+# one and cancel it.
+concurrency:
+  group: test-${{ github.workflow }}-${{ github.event.pull_request.head.repo.full_name || github.repository }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1.321.0
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Run tests
+        run: bundle exec rake test
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1.321.0
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Run RuboCop
+        run: bundle exec rubocop
+
+      # Sorbet checks types rather than running anything, so it belongs beside
+      # RuboCop: both reject a branch on what the source says, not what it does.
+      - name: Run Sorbet
+        run: bundle exec srb tc
