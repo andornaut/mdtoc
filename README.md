@@ -72,7 +72,7 @@ task :mdtoc do
 end
 ```
 
-See [andornaut/til](https://github.com/andornaut/til/blob/master/Rakefile) for an example.
+See [andornaut/til](https://github.com/andornaut/til/blob/main/Rakefile) for an example.
 
 ## Development
 
