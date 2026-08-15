@@ -1,6 +1,6 @@
 # mdtoc - Markdown Table of Contents
 
-[![CI](https://github.com/andornaut/mdtoc/actions/workflows/test.yml/badge.svg)](https://github.com/andornaut/mdtoc/actions/workflows/test.yml)
+[![CI](https://github.com/andornaut/mdtoc/actions/workflows/release.yml/badge.svg)](https://github.com/andornaut/mdtoc/actions/workflows/release.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Read Markdown files and output a table of contents.
