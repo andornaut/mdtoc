@@ -5,7 +5,15 @@ plugins:
   - rubocop-sorbet
 
 AllCops:
+  # A cop added in a later release starts pending rather than enabled, so
+  # without this a rubocop upgrade quietly widens nothing.
   NewCops: enable
+  # Stated rather than left to inference, which reads it off the gemspec's
+  # required_ruby_version, so a cop cannot suggest syntax this repository
+  # cannot run if that constraint is ever loosened.
+  TargetRubyVersion: 3.2
+  # Every suggestion it makes is already a decision taken here.
+  SuggestExtensions: false
   Exclude:
     - 'pkg/**/*'
     - 'vendor/**/*'
