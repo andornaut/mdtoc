@@ -8,7 +8,6 @@ AllCops:
   NewCops: enable
   Exclude:
     - 'pkg/**/*'
-    - 'bin/*'
     - 'vendor/**/*'
 
 Style/Documentation:
