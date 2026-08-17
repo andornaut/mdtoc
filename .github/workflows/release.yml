@@ -128,3 +128,51 @@ jobs:
           generate_release_notes: ${{ github.ref != 'refs/heads/main' }}
           make_latest: ${{ github.ref == 'refs/heads/main' && 'false' || 'true' }}
           files: artifacts/*.gem
+
+  # Tags only: `dev` is a rolling build and the registry holds released
+  # versions. Behind `release` rather than beside it, so the tag and the GitHub
+  # release naming a version exist before RubyGems carries it; a pushed gem
+  # cannot be replaced the way a GitHub release can be edited.
+  publish:
+    needs: release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    # id-token is the whole credential: the step below exchanges this job's OIDC
+    # claim for a short-lived RubyGems token, so no API key is stored as a
+    # secret. The trusted publisher registered on rubygems.org names this
+    # repository and this workflow file, so renaming either stops the publish
+    # until it is renamed there too.
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+        with:
+          # Nothing in this job uses the token, so it is not left
+          # in .git/config for a later step to read.
+          persist-credentials: false
+
+      # No bundler-cache: pushing a built gem needs the `gem` command and
+      # nothing out of the Gemfile.
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1.321.0
+        with:
+          ruby-version: .ruby-version
+
+      - name: Download gem artifact
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: gem
+          path: artifacts
+
+      - name: Configure RubyGems credentials
+        uses: rubygems/configure-rubygems-credentials@v2.1.0
+
+      # The gem the Build job produced, not a rebuild, so what the GitHub
+      # release above carries and what RubyGems serves are the same file rather
+      # than two builds of one version.
+      - name: Push the gem
+        run: gem push artifacts/*.gem
