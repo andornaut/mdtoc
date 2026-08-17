@@ -139,8 +139,8 @@ jobs:
     timeout-minutes: 15
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     # id-token is the whole credential: the step below exchanges this job's OIDC
-    # claim for a short-lived RubyGems token, so no API key is stored as a
-    # secret. The trusted publisher registered on rubygems.org names this
+    # claim for a short-lived RubyGems API key, so nothing long-lived is stored
+    # as a secret. The trusted publisher registered on rubygems.org names this
     # repository and this workflow file, so renaming either stops the publish
     # until it is renamed there too.
     permissions:
@@ -174,5 +174,5 @@ jobs:
       # The gem the Build job produced, not a rebuild, so what the GitHub
       # release above carries and what RubyGems serves are the same file rather
       # than two builds of one version.
-      - name: Push the gem
+      - name: Publish to RubyGems
         run: gem push artifacts/*.gem
