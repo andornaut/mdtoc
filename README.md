@@ -112,4 +112,14 @@ f=$(mktemp) && ruby -Ilib bin/mdtoc -aco ${f} test/samples ; cat ${f}
 1. Bump version in `lib/mdtoc/version.rb`
 2. Run `bundle install` to update `Gemfile.lock`
 3. Commit the changes
-4. Run `rake release` to publish the gem to RubyGems, create the git tag, and push
+4. Tag the commit `vX.Y.Z` and push the tag
+
+Pushing the tag is the whole release. The Release workflow runs the checks,
+builds the gem, cuts the GitHub release, and pushes that same gem to RubyGems.
+`rake release` is not run by hand.
+
+Nothing here holds a RubyGems API key. The workflow authenticates with a
+short-lived credential minted from its own OIDC claim, against a trusted
+publisher registered on RubyGems that names this repository and
+`.github/workflows/release.yml`. Renaming that file stops publishing until the
+trusted publisher is updated to match.
