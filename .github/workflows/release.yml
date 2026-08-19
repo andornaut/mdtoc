@@ -61,6 +61,32 @@ jobs:
           # in .git/config for a later step to read.
           persist-credentials: false
 
+      # The registry carries what the manifest declares, not what the tag says.
+      # A manifest behind its tag is caught by the registry refusing a version
+      # it already has; one ahead of its tag publishes successfully, under a
+      # version no tag names and with nothing to say so. protect-release-tags
+      # has no bypass, so a tag cut against the wrong manifest cannot be moved
+      # to match afterwards: the next version number is the only way out.
+      #
+      # In build rather than beside the publish, so a mismatch fails before
+      # there is an artifact, a GitHub release or a registry upload.
+      - name: The declared version must name this tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          version=$(sed -n "s/^ *VERSION = '\(.*\)'/\1/p" lib/mdtoc/version.rb | head -1)
+          # An extraction that returned nothing is a format that moved, which
+          # must fail rather than compare an empty string and look like a match.
+          if [ -z "$version" ]; then
+            echo "::error::no version found in lib/mdtoc/version.rb"
+            exit 1
+          fi
+          if [ "v$version" != "$TAG" ]; then
+            echo "::error::lib/mdtoc/version.rb declares $version, but this tag is $TAG"
+            exit 1
+          fi
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1.321.0
         with:
