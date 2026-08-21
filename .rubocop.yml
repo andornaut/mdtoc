@@ -11,7 +11,7 @@ AllCops:
   # Stated rather than left to inference, which reads it off the gemspec's
   # required_ruby_version, so a cop cannot suggest syntax this repository
   # cannot run if that constraint is ever loosened.
-  TargetRubyVersion: 3.2
+  TargetRubyVersion: 3.4
   # Every suggestion it makes is already a decision taken here.
   SuggestExtensions: false
   Exclude:

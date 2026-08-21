@@ -4,7 +4,7 @@
 source 'https://rubygems.org', cooldown: 7
 
 # Dependabot does not read `.ruby-version`, so without this it resolves against
-# its own default Ruby and cannot satisfy the gems that require 3.2.
+# its own default Ruby and cannot satisfy the gems that require 3.4.
 ruby file: '.ruby-version'
 
 gemspec
