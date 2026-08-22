@@ -19,9 +19,9 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency('minitest', '~> 6.0')
   spec.add_development_dependency('rake')
-  spec.add_development_dependency('sorbet')
   spec.add_development_dependency('rubocop', '~> 1.50')
   spec.add_development_dependency('rubocop-sorbet', '~> 0.13.0')
+  spec.add_development_dependency('sorbet')
   # `unparser` is need by the `Sorbet/SignatureBuildOrder` autocorrect feature.
   spec.add_development_dependency('unparser', '~> 0.8.0')
 
