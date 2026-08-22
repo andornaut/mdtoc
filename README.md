@@ -2,7 +2,7 @@
 
 [![Gem](https://img.shields.io/gem/v/mdtoc)](https://rubygems.org/gems/mdtoc)
 [![CI](https://github.com/andornaut/mdtoc/actions/workflows/release.yml/badge.svg)](https://github.com/andornaut/mdtoc/actions/workflows/release.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/MIT)
 
 Read Markdown files and output a table of contents.
 
