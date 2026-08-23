@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('rubocop-sorbet', '~> 0.13.0')
   spec.add_development_dependency('sorbet')
   # `unparser` is need by the `Sorbet/SignatureBuildOrder` autocorrect feature.
-  spec.add_development_dependency('unparser', '~> 0.8.0')
+  spec.add_development_dependency('unparser', '~> 0.9.0')
 
   spec.add_dependency('sorbet-runtime')
   spec.metadata['rubygems_mfa_required'] = 'true'
