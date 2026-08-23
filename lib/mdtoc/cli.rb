@@ -41,7 +41,7 @@ module Mdtoc
       prop :output, T.nilable(String)
       prop :paths, T::Array[String], default: []
 
-      sig { params(key: Symbol, val: T.untyped).returns(T.untyped) }
+      sig { params(key: Symbol, val: T.untyped).void }
       def []=(key, val)
         send("#{key}=", val)
       end

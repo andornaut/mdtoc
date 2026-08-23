@@ -53,7 +53,7 @@ GEM
     rubocop-ast (1.50.0)
       parser (>= 3.3.7.2)
       prism (~> 1.7)
-    rubocop-sorbet (0.13.2)
+    rubocop-sorbet (0.14.0)
       lint_roller
       rubocop (>= 1.75.2)
     ruby-progressbar (1.13.0)
@@ -62,13 +62,13 @@ GEM
       sexp_processor (~> 4.16)
     rubydex (0.3.0-x86_64-linux)
     sexp_processor (4.17.5)
-    sorbet (0.6.13426)
-      sorbet-static (= 0.6.13426)
-    sorbet-runtime (0.6.13426)
-    sorbet-static (0.6.13426-x86_64-linux)
-    sorbet-static-and-runtime (0.6.13426)
-      sorbet (= 0.6.13426)
-      sorbet-runtime (= 0.6.13426)
+    sorbet (0.6.13427)
+      sorbet-static (= 0.6.13427)
+    sorbet-runtime (0.6.13427)
+    sorbet-static (0.6.13427-x86_64-linux)
+    sorbet-static-and-runtime (0.6.13427)
+      sorbet (= 0.6.13427)
+      sorbet-runtime (= 0.6.13427)
     sorted_set (1.1.0)
       rbtree
     spoom (1.7.16)
@@ -109,7 +109,7 @@ DEPENDENCIES
   minitest (~> 6.0)
   rake
   rubocop (~> 1.50)
-  rubocop-sorbet (~> 0.13.0)
+  rubocop-sorbet (~> 0.14.0)
   ruby_parser
   sorbet
   sorted_set
