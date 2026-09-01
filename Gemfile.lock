@@ -20,7 +20,7 @@ GEM
       drb (~> 2.0)
       prism (~> 1.5)
     netrc (0.11.0)
-    parallel (1.28.0)
+    parallel (2.1.0)
     parser (3.3.12.0)
       ast (~> 2.4.1)
       racc
@@ -28,7 +28,7 @@ GEM
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.4.2)
-    rbi (0.3.10)
+    rbi (0.4.3)
       prism (~> 1.0)
       rbs (>= 4.0.1)
     rbs (4.1.0.pre.2)
@@ -53,9 +53,11 @@ GEM
     rubocop-ast (1.50.0)
       parser (>= 3.3.7.2)
       prism (~> 1.7)
-    rubocop-sorbet (0.14.0)
+    rubocop-sorbet (0.15.0)
       lint_roller
+      rbi (~> 0.4)
       rubocop (>= 1.75.2)
+      spoom (~> 1.8)
     ruby-progressbar (1.13.0)
     ruby_parser (3.22.0)
       racc (~> 1.5)
@@ -71,10 +73,10 @@ GEM
       sorbet-runtime (= 0.6.13427)
     sorted_set (1.1.0)
       rbtree
-    spoom (1.7.16)
+    spoom (1.8.7)
       erubi (>= 1.10.0)
       prism (>= 0.28.0)
-      rbi (>= 0.3.3)
+      rbi (>= 0.4.2)
       rbs (>= 4.0.0.dev.5)
       rexml (>= 3.2.6)
       sorbet-static-and-runtime (>= 0.5.10187)
@@ -109,7 +111,7 @@ DEPENDENCIES
   minitest (~> 6.0)
   rake
   rubocop (~> 1.50)
-  rubocop-sorbet (~> 0.14.0)
+  rubocop-sorbet (~> 0.15.0)
   ruby_parser
   sorbet
   sorted_set
