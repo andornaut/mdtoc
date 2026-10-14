@@ -97,7 +97,7 @@ jobs:
         run: bundle exec rake build
 
       - name: Upload gem artifact
-        uses: actions/upload-artifact@v7.0.1
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: gem
           path: pkg/*.gem
