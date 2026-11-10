@@ -87,14 +87,13 @@ jobs:
             exit 1
           fi
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1.336.0
+      - name: Set up Docker
+        uses: docker/setup-docker-action@v5.7.0
         with:
-          ruby-version: .ruby-version
-          bundler-cache: true
+          version: v29.9.3
 
       - name: Build gem
-        run: bundle exec rake build
+        run: make build
 
       - name: Upload gem artifact
         uses: actions/upload-artifact@v7.0.2
