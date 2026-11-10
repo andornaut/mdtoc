@@ -83,15 +83,14 @@ and scratch storage.
 
 ```bash
 make check
-make test TEST_ARGS='-n test_skips_multiline_code_blocks'
-make lint
-make build
-make check-info
+bundle exec rake test
+bundle exec rake rubocop
+bundle exec rake sorbet
+bundle exec rake build
 ```
 
 The full gate runs RuboCop, Sorbet, Markdown lint, the unit suite and gem
-packaging. `make build` exports the gem under `pkg/`. Rake check targets delegate
-to the same Make interface.
+packaging. `make build` exports the gem under `pkg/`. Native Rake tasks run on the host.
 
 ### Publishing
 

@@ -11,17 +11,15 @@ case "$category" in
         ;;
     lint)
         shellcheck -x -P SCRIPTDIR tests/container/run tests/container/check
-        bundle exec rubocop
-        bundle exec srb tc
+        bundle exec rake rubocop
+        bundle exec rake sorbet
         markdownlint-cli2
         ;;
     test)
-        exec bundle exec ruby -w -Ilib:test -e 'Dir.glob("test/**/test_*.rb").sort.each { |file| require File.expand_path(file) }' -- "$@"
+        exec bundle exec rake test TESTOPTS="$*"
         ;;
     build)
-        mkdir -p pkg
-        version=$(bundle exec ruby -Ilib -rmdtoc/version -e 'print Mdtoc::VERSION')
-        bundle exec gem build mdtoc.gemspec --output "pkg/mdtoc-${version}.gem"
+        exec bundle exec rake build
         ;;
     exec)
         cp -R --no-preserve=ownership /opt/bundle /scratch/bundle

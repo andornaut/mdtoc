@@ -2,25 +2,23 @@
 # frozen_string_literal: true
 
 require 'bundler'
+require 'rake/testtask'
 require 'rubocop/rake_task'
 
 Bundler::GemHelper.install_tasks
 
-desc 'Run all verification in containers'
-task default: :check
+desc 'Run the build, rubocop:autocorrect_all, sorbet and test tasks'
+task default: ['build', 'rubocop:autocorrect_all', 'sorbet', 'test']
 
 RuboCop::RakeTask.new
+
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'lib'
+  t.libs << 'test'
+  t.test_files = FileList['test/**/test_*.rb']
+end
 
 desc 'Run the Sorbet type checker'
 task :sorbet do
   sh 'srb tc'
-end
-
-Rake::Task[:build].clear
-
-%w[check test lint build].each do |name|
-  desc "Run #{name} in a container"
-  task name do
-    sh 'make', name
-  end
 end
