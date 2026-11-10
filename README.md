@@ -90,7 +90,7 @@ bundle exec rake build
 ```
 
 The full gate runs RuboCop, Sorbet, Markdown lint, the unit suite and gem
-packaging. `make build` exports the gem under `pkg/`. Native Rake tasks run on the host.
+packaging. `bundle exec rake build` writes the gem under `pkg/`. Native Rake tasks run on the host.
 
 ### Publishing
 
