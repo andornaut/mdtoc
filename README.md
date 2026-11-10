@@ -77,36 +77,20 @@ See [andornaut/til](https://github.com/andornaut/til/blob/main/Rakefile) for an 
 
 ## Developing
 
-### Setup
-
-Requirements:
-
-* [Bundler](https://bundler.io/)
-* [chruby](https://github.com/postmodern/chruby) (recommended)
+Make and Docker run the project-owned checks in `tests/container/`. Verification
+mounts only a read-only source snapshot and scratch storage.
 
 ```bash
-# Setup development environment
-bin/setup
+make check
+make test TEST_ARGS='-n test_skips_multiline_code_blocks'
+make lint
+make build
+make check-info
 ```
 
-### Tasks
-
-```bash
-# List rake tasks
-rake -T
-rake build                    # Build gem into the pkg directory
-rake default                  # Run the build, rubocop, sorbet and test tasks
-rake install                  # Build and install gem into system gems
-rake rubocop                  # Run RuboCop
-rake sorbet                   # Run the Sorbet type checker
-rake test                     # Run tests
-
-# Run mdtoc with test inputs
-ruby -Ilib bin/mdtoc test/samples
-
-# Run mdtoc with test inputs, and write to a newly created output file
-f=$(mktemp) && ruby -Ilib bin/mdtoc -aco ${f} test/samples ; cat ${f}
-```
+The full gate runs RuboCop, Sorbet, Markdown lint, the unit suite and gem
+packaging. `make build` exports the gem under `pkg/`. Rake check targets delegate
+to the same Make interface.
 
 ### Publishing
 
