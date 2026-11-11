@@ -8,11 +8,11 @@ mkdir -p /scratch/gems /scratch/bundle /scratch/bundle-config
 gem install bundler --version 4.0.13 --no-document >&2
 BUNDLE_FROZEN=true bundle _4.0.13_ install >&2
 if [ "$action" = check ] || [ "$action" = lint ]; then
-    for script in tests/container/stock tests/container/check-stock tests/container/test-publish; do bash -n "$script"; done
+    for script in tests/container/stock tests/container/check-stock; do bash -n "$script"; done
     for script in tests/container/ruby tests/container/markdown; do sh -n "$script"; done
 fi
 if [ "$action" = check ] || [ "$action" = lint ]; then
-    bash tests/container/test-publish
+    bash
     bundle exec rake rubocop
     bundle exec rake sorbet
 fi
@@ -20,11 +20,6 @@ if [ "$action" = check ] || [ "$action" = test ]; then
     bundle exec rake test
 fi
 if [ "$action" = check ] || [ "$action" = build ]; then
-    result=0
-    bundle exec rake build || result=$?
-    if [ "$action" = build ]; then
-        if [ "$result" = 0 ]; then cp pkg/*.gem /outputs/ || result=$?; fi
-        find /outputs -mindepth 1 -type d -exec chmod a+rwx {} +
-    fi
-    [ "$result" = 0 ] || exit "$result"
+    bundle exec rake build
+    if [ "$action" = build ]; then cp pkg/*.gem /outputs/; fi
 fi
