@@ -94,7 +94,7 @@ jobs:
           source tests/container/stock
           stock_begin "$PWD"
           STOCK_OUTPUT_DIR=
-          stock_image native_image "ruby:$(cat .ruby-version)"
+          native_image="ruby:$(cat .ruby-version)"
           build_output=${scratch}/build-output
           mkdir "${build_output}"
           STOCK_OUTPUT_DIR=${build_output} STOCK_NETWORK=bridge stock_run "${native_image}" -- sh -ec '          export GEM_HOME=/scratch/gems GEM_PATH=/scratch/gems:/usr/local/bundle
