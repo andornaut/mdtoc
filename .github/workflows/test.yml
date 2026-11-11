@@ -92,7 +92,6 @@ jobs:
           export PATH="/scratch/gems/bin:$PATH" BUNDLE_PATH=/scratch/bundle BUNDLE_APP_CONFIG=/scratch/bundle-config
           for script in tests/container/stock tests/container/check-stock; do bash -n "$script"; done
           for script in tests/container/ruby tests/container/markdown; do sh -n "$script"; done
-          bash
           bundle exec rake rubocop sorbet
           '
           stock_finish

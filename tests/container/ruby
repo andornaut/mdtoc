@@ -12,7 +12,6 @@ if [ "$action" = check ] || [ "$action" = lint ]; then
     for script in tests/container/ruby tests/container/markdown; do sh -n "$script"; done
 fi
 if [ "$action" = check ] || [ "$action" = lint ]; then
-    bash
     bundle exec rake rubocop
     bundle exec rake sorbet
 fi
