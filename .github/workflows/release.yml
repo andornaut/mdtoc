@@ -88,36 +88,36 @@ jobs:
           fi
 
       - name: Build gem
+        shell: bash
         run: |
-          set -eu
-          scratch=$(mktemp -d)
-          SOURCE_DATE_EPOCH=$(git show -s --format=%ct HEAD)
-          export SOURCE_DATE_EPOCH
-          image="ruby:$(cat .ruby-version)"
-          docker run --rm -i --platform linux/amd64 --read-only \
-            --user "$(id -u):$(id -g)" --cap-drop ALL \
-            --security-opt no-new-privileges --cpus 4 --memory 4g --pids-limit 512 \
-            --mount "type=bind,src=$PWD,dst=/project,readonly" \
-            --mount "type=bind,src=$scratch,dst=/scratch" \
-            -e SOURCE_DATE_EPOCH \
-            -e HOME=/scratch/home -e TMPDIR=/scratch/tmp \
-            -e PYTHONDONTWRITEBYTECODE=1 -e PYTHONPYCACHEPREFIX=/scratch/pycache \
-            "$image" sh -se <<'CONTAINER'
-          mkdir -p /scratch/home /scratch/tmp /scratch/work
-          test "$(uname -m)" = x86_64
-          cp -R /project/lib /project/bin /project/test /scratch/work/
-          cp /project/Gemfile /project/Gemfile.lock /project/mdtoc.gemspec /project/Rakefile /project/README.md /project/LICENSE /project/.ruby-version /scratch/work/
-          cd /scratch/work
-          export GEM_HOME=/scratch/gems GEM_PATH=/scratch/gems:/usr/local/bundle
+          set -euo pipefail
+          : "${GITHUB_SHA:?CI requires its expected source commit}"
+          ci_revision=$(git --no-optional-locks -c core.fsmonitor=false -c core.hooksPath=/dev/null rev-parse HEAD)
+          ci_status=$(git --no-optional-locks -c core.fsmonitor=false -c core.hooksPath=/dev/null status --porcelain=v1 --untracked-files=all)
+          if [[ ${ci_revision} != "${GITHUB_SHA}" || -n ${ci_status} ]]; then
+            printf '%s\n' 'CI requires the clean expected source commit.' >&2
+            exit 125
+          fi
+          source tests/container/stock
+          stock_begin "$PWD"
+          if [[ ${revision} != "${GITHUB_SHA}" || ${source_dirty} != false ]]; then
+            printf '%s\n' 'CI source changed before snapshot capture.' >&2
+            exit 125
+          fi
+          stock_image native_image "ruby:$(cat .ruby-version)"
+          stock_prepare "${native_image}" native -- sh -ec 'export GEM_HOME=/scratch/gems GEM_PATH=/scratch/gems:/usr/local/bundle
           export PATH="/scratch/gems/bin:$PATH" BUNDLE_PATH=/scratch/bundle BUNDLE_APP_CONFIG=/scratch/bundle-config
-          ruby --version
-          gem install bundler --version 4.0.13 --no-document
-          BUNDLE_FROZEN=true bundle _4.0.13_ install
-          bundle _4.0.13_ --version
+          mkdir -p /scratch/gems /scratch/bundle /scratch/bundle-config
+          gem install bundler --version 4.0.13 --no-document >&2
+          BUNDLE_FROZEN=true bundle _4.0.13_ install >&2
+          tar --create --file - --directory / scratch/gems scratch/bundle scratch/bundle-config
+          '
+          outputs=(pkg)
+          stock_run "${native_image}" native -- sh -ec 'export GEM_HOME=/scratch/gems GEM_PATH=/scratch/gems:/usr/local/bundle
+          export PATH="/scratch/gems/bin:$PATH" BUNDLE_PATH=/scratch/bundle BUNDLE_APP_CONFIG=/scratch/bundle-config
           bundle exec rake build
-          CONTAINER
-          mkdir -p pkg
-          cp "$scratch/work/pkg/"*.gem pkg/
+          '
+          stock_finish
 
       - name: Upload gem artifact
         uses: actions/upload-artifact@v7.0.2
