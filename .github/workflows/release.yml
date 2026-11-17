@@ -201,7 +201,7 @@ jobs:
       # No bundler-cache: pushing a built gem needs the `gem` command and
       # nothing out of the Gemfile.
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1.336.0
+        uses: ruby/setup-ruby@v1.338.0
         with:
           ruby-version: .ruby-version
 
